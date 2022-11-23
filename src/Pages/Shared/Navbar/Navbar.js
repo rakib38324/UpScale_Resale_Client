@@ -1,16 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
-import logo from './logo.png'
+import { AuthContext } from '../../../Context/AuthProvider';
 
 const Navbar = () => {
+
+    const {user,logOut} = useContext(AuthContext)
+    console.log(user)
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { 
+                toast.success('Log Out Successfully')
+            })
+            .catch(err => console.log(err));
+    }
+
 
     const menuItems = <React.Fragment>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/appointment">Appointment</Link></li>
         <li><Link to="/about">About</Link></li>
-        <li><Link to="/dashboard">Dashboard</Link></li>
-        <li><button >Sign out</button></li>
-        <li><Link to="/login">Login</Link></li>
+        {user?.uid ?
+            <>
+                <li><Link to="/myorder">My Order</Link></li>
+                <li><button onClick={handleLogOut}>Sign out</button></li>
+            </>
+            : <li><Link to="/login">Login</Link></li>}
     </React.Fragment>
 
     return (
