@@ -7,27 +7,74 @@ import { AuthContext } from '../../Context/AuthProvider';
 
 
 const SignUp = () => {
-    
+
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [signUpError, setSignUPError] = useState('')
 
-    const { createUser, updateUser,signUpWitGoogle } = useContext(AuthContext)
+    const { createUser, updateUser, signUpWitGoogle } = useContext(AuthContext)
 
 
     const handleSignUp = (data) => {
-        console.log(data);
+        // console.log(data);
+
         setSignUPError('');
         createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
+                // console.log(user);
                 toast.success('User Created Successfully.')
+
                 const userInfo = {
                     displayName: data.name
                 }
                 updateUser(userInfo)
                     .then(() => {
                         // saveUser(data.name,data.email);
+
+                        //Upload image and save database imgibb
+                        const image = data.image[0];
+                        
+                        const formData = new FormData();
+                        formData.append('image', image);
+                        const imgKey=process.env.REACT_APP_IMG_KEY;
+                        console.log(image, imgKey)
+                        const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imgKey}`;
+
+                        fetch(url, {
+                            method: 'POST',
+                            body: formData
+                        })
+                            .then(res => res.json())
+                            .then(imgData => {
+                                if (imgData.success) {
+                                    // console.log(imgData.data.url);
+                                    const user = {
+                                        name: data.name, 
+                                        email: data.email,
+                                        profileType: data.profileType,
+                                        image: imgData.data.url
+                                    }
+
+                                    console.log(user)
+
+                                    // Save user information to the database
+                                    fetch('http://localhost:5000/users', {
+                                        method: 'POST',
+                                        headers: {
+                                            'content-type': 'application/json', 
+                                            // authorization: `bearer ${localStorage.getItem('accessToken')}`
+                                        },
+                                        body: JSON.stringify(user)
+                                    })
+                                    .then(res => res.json())
+                                    .then(result =>{
+                                        // console.log(result);
+                                        // toast.success(`${data.name} is added successfully`);
+                                        // navigate('/dashboard/managedoctors')
+                                    })
+                                }
+                            })
+
                     })
                     .catch(err => console.log(err));
             })
@@ -44,12 +91,14 @@ const SignUp = () => {
                 const user = result.user;
                 console.log(user)
                 toast.success("Login Successfully")
-                const currentUser = { email: user.email }
+                // const currentUser = { email: user.email }
 
             })
             .catch(error => console.log(error))
 
     }
+
+
 
     return (
 
@@ -76,16 +125,35 @@ const SignUp = () => {
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label"> <span className="label-text text-secondary font-bold">Password</span></label>
-                        <input type="password"
-                            {...register("password", {
-                                required: "Password is required",
-                                minLength: { value: 6, message: 'Password must be 6 characters or longer' }
-                            })}
-                            className="input input-bordered input-primary w-full max-w-xs" />
-                        <label className="label"> <span className="label-text text-secondary font-bold">Forget Password?</span></label>
-                        {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
+                        <input type="password" {...register("password", {
+                            required: "Password is required",
+                            minLength: { value: 6, message: "Password must be 6 characters long" },
+                            pattern: { value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/, message: 'Password must have uppercase, number and special characters' }
+                        })} className="input input-bordered input-primary w-full max-w-xs" />
+                        {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
                     </div>
-                    <input className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white w-full ' value="SignUp" type="submit" />
+
+                    <div className="form-control  w-full max-w-xs">
+                        <label className="label"> <span className="label-text text-secondary font-bold">Please Select As A</span></label>
+                        <select
+                            {...register('profileType')}
+                            className="select input-bordered input-primary w-full max-w-xs">
+                            <option className='text-primary'>User</option>
+                            <option className='text-primary'>Seller</option>
+                        </select>
+                    </div>
+
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label"> <span className="label-text text-secondary font-bold">Image</span></label>
+                        <input type="file" {...register("image", {
+                            required: "Photo is Required"
+                        })} className="input input-bordered input-primary w-full max-w-xs pt-2" />
+                        {errors.img && <p className='text-red-500'>{errors.img.message}</p>}
+                    </div>
+
+
+
+                    <input className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white w-full mt-2' value="SignUp" type="submit" />
                     <div>
                         {signUpError && <p className='text-red-600'>{signUpError}</p>}
                     </div>

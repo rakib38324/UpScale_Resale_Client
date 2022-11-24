@@ -43,6 +43,7 @@ const Login = () => {
                 console.log(user)
                 toast.success("Login Successfully")
                 const currentUser = { email: user.email }
+                
 
             })
             .catch(error => console.log(error))
