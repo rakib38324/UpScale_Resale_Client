@@ -4,6 +4,9 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import useToken from '../../Hooks/UserTooken';
+import useAdmin from '../../Hooks/UseAdmin';
+import UserHook from '../../Hooks/UserHook';
+import UseSeller from '../../Hooks/UseSeller';
 
 
 
@@ -14,6 +17,11 @@ const SignUp = () => {
 
     const [createdUserEmail, setCreatedUserEmail] = useState('')
     const [token] = useToken(createdUserEmail)
+
+    const [isAdmin] = useAdmin(createdUserEmail)
+    const [isSeller] = UseSeller(createdUserEmail)
+    const [isUser] = UserHook(createdUserEmail)
+
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -21,7 +29,6 @@ const SignUp = () => {
 
     if (token) {
         navigate('/')
-        
     }
 
     const handleSignUp = (data) => {
@@ -41,13 +48,17 @@ const SignUp = () => {
                     .then(() => {
                         // saveUser(data.name,data.email);
 
+
+
+
+
                         //Upload image and save database imgibb
                         const image = data.image[0];
 
                         const formData = new FormData();
                         formData.append('image', image);
                         const imgKey = process.env.REACT_APP_IMG_KEY;
-                        console.log(image, imgKey)
+                        // console.log(image, imgKey)
                         const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imgKey}`;
 
                         fetch(url, {
@@ -56,36 +67,33 @@ const SignUp = () => {
                         })
                             .then(res => res.json())
                             .then(imgData => {
-                                if (imgData.success) {
 
-
-
-                                    // console.log(imgData.data.url);
-                                    const user = {
-                                        name: data.name,
-                                        email: data.email,
-                                        profileType: data.profileType,
-                                        image: imgData.data.url
-                                    }
-
-
-                                    console.log(user)
-
-                                    // Save user information to the database
-                                    fetch('http://localhost:5000/users', {
-                                        method: 'POST',
-                                        headers: {
-                                            'content-type': 'application/json',
-                                            // authorization: `bearer ${localStorage.getItem('accessToken')}`
-                                        },
-                                        body: JSON.stringify(user)
-                                    })
-                                        .then(res => res.json())
-                                        .then(result => {
-                                            setCreatedUserEmail(data.email);
-                                            toast.success("Login Successfully")
-                                        })
+                                // console.log(imgData.data.url);
+                                const user = {
+                                    name: data.name,
+                                    email: data.email,
+                                    profileType: data.profileType,
+                                    image: imgData.data.url
                                 }
+
+
+                                console.log(user)
+
+
+                                // Save user information to the database
+                                fetch('http://localhost:5000/users', {
+                                    method: 'POST',
+                                    headers: {
+                                        'content-type': 'application/json',
+                                    },
+                                    body: JSON.stringify(user)
+                                })
+                                    .then(res => res.json())
+                                    .then(result => {
+                                        setCreatedUserEmail(data.email);
+                                        toast.success("Login Successfully")
+                                    })
+
                             })
 
                     })
@@ -133,7 +141,7 @@ const SignUp = () => {
                                 fetch('http://localhost:5000/users', {
                                     method: 'POST',
                                     headers: {
-                                        'content-type': 'application/json',                                  
+                                        'content-type': 'application/json',
                                     },
                                     body: JSON.stringify(profile)
                                 })

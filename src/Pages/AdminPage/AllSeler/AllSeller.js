@@ -2,15 +2,16 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { FaCheckCircle } from "react-icons/fa";
 import toast from 'react-hot-toast';
-import Loading from '../Shared/Loading/Loading';
+import Loading from '../../Shared/Loading/Loading';
 
-const Users = () => {
+
+const AllSeller = () => {
     
 
     const {data: users = [], refetch,isLoading} = useQuery({
-        queryKey: ['users'],
+        queryKey: ['allseller'],
         queryFn: async () =>{
-            const res = await fetch('http://localhost:5000/users');
+            const res = await fetch('http://localhost:5000/allseller');
             const data = await res.json();
             return data;
         }
@@ -71,7 +72,7 @@ const Users = () => {
 
     return (
         <div>
-            <h1 className='text-3xl text-center my-10'> All Users</h1>
+            <h1 className='text-3xl text-center my-10'> All Seller</h1>
             <div className="overflow-x-auto mb-20">
                 <table className="table w-full">
                     <thead>
@@ -81,8 +82,7 @@ const Users = () => {
                             <th>Name</th>
                             <th>Email</th>
                             <th>Admin</th>
-                            <th>Type Of User</th>
-                            <th>Verify Seller</th>
+                            <th>Verify</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -115,7 +115,7 @@ const Users = () => {
                                     user?.role === 'admin' && <button  className='btn btn-xs bg-green-400 text-black'>Admin</button>
                                 }
                                 </td>
-                                <td><button className='btn btn-xs bg-blue-500 text-black'>{user.profileType}</button></td>
+                                
                                 <td>{
                                     user?.verify !== 'verified' && <button onClick={()=>HandleMakeVerify(user._id)} className='btn btn-xs btn-primary'>Verify Seller</button>
                                     }
@@ -134,4 +134,4 @@ const Users = () => {
     );
 };
 
-export default Users;
+export default AllSeller;

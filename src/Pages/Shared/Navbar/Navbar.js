@@ -1,38 +1,67 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
+import useAdmin from '../../../Hooks/UseAdmin';
+import UserHook from '../../../Hooks/UserHook';
+import UseSeller from '../../../Hooks/UseSeller';
 
 const Navbar = () => {
 
-    const {user,logOut} = useContext(AuthContext)
-    
+    const { user, logOut } = useContext(AuthContext)
+
+    console.log(user?.email)
+
+    const [isAdmin] = useAdmin(user?.email)
+    const [isSeller] = UseSeller(user?.email)
+    const [isUser] = UserHook(user?.email)
+    const navigate = useNavigate();
 
     const handleLogOut = () => {
         logOut()
-            .then(() => { 
+            .then(() => {
                 toast.success('Log Out Successfully')
+                localStorage.removeItem('accessToken')
+                navigate('/')
             })
             .catch(err => console.log(err));
     }
 
+    // console.log(isAdmin,isSeller,isUser)
 
     const menuItems = <React.Fragment>
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/appointment">Appointment</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/addproducts">Add Products</Link></li>
+        <li><Link to="/blogs">Blogs</Link></li>
+        <li><Link to="/allusers">All Users</Link></li>
+
+
         {
-          <li><Link to="/users">Users</Link></li>}
-        {
-            <li><Link to="/myorder">My Order</Link></li>
-        }
-        {user?.uid ?
-            <>
-                
-                <li><button onClick={handleLogOut}>Sign out</button></li>
+            isUser && <>
+                <li><Link to="/myorder">My Order</Link></li>
             </>
-            : <li><Link to="/login">Login</Link></li>}
+        }
+        {
+            isAdmin && <>
+              
+                <li><Link to="/allseller">All Seller</Link></li>
+                <li><Link to="/allbuyer">All Buyer</Link></li>
+                <li><Link to="/reportitems">Reported Items</Link></li>
+            </>
+        }
+        {
+            isSeller && <>
+                <li><Link to="/addproducts">Add Products</Link></li>
+                <li><Link to="/myproducts">My Products</Link></li>
+                <li><Link to="/mybuyers">My Buyer</Link></li>
+            </>
+        }
+        {
+            user?.uid ?
+                <>
+                    <li><button onClick={handleLogOut}>Sign out</button></li>
+                </>
+                : <li><Link to="/login">Login</Link></li>
+        }
     </React.Fragment>
 
     return (
@@ -46,7 +75,7 @@ const Navbar = () => {
                         {menuItems}
                     </ul>
                 </div>
-                
+
                 <Link to="/" className="btn btn-ghost font-bold normal-case text-2xl"> <span className='text-blue-600 font-extrabold animate-bounce'>Up</span>Scale <span className='text-blue-600 pl-2 font-extrabold'>Re</span> <span >Sale</span></Link>
             </div>
             <div className="navbar-center hidden lg:flex">
@@ -54,7 +83,7 @@ const Navbar = () => {
                     {menuItems}
                 </ul>
             </div>
-            
+
         </div>
     );
 };

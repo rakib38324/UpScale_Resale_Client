@@ -26,15 +26,7 @@ const AddProduct = () => {
                             className="input input-bordered input-primary w-full max-w-xs" />
                         {errors.email && <p className='text-red-600'>{errors.email?.message}</p>}
                     </div>
-                    <div className="form-control w-full max-w-xs">
-                        <label className="label"> <span className="label-text text-green-800 font-bold">Password</span></label>
-                        <input type="password" {...register("password", {
-                            required: "Password is required",
-                            minLength: { value: 6, message: "Password must be 6 characters long" },
-                            pattern: { value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/, message: 'Password must have uppercase, number and special characters' }
-                        })} className="input input-bordered input-primary w-full max-w-xs" />
-                        {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
-                    </div>
+                    
 
                     <div className="form-control  w-full max-w-xs">
                         <label className="label"> <span className="label-text text-green-800 font-bold">Please Select As A</span></label>
