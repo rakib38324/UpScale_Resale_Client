@@ -12,10 +12,10 @@ const Brand = () => {
         }
     })
     return (
-        <div>
-            <h1 className='text-4xl text-center mt-20 font-bold text-blue-600'>Mobile Phone Brand</h1>
+        <div className='bg-green-100 rounded-lg py-5 mb-5'>
+            <h1 className='text-4xl text-center  font-bold text-blue-600'>Mobile Phone Brand</h1>
 
-            <div className='grid sm:grid-cols-1 lg:grid-cols-3 gap-3 my-10'>
+            <div className='grid sm: px-2 lg:grid-cols-3 gap-3 my-10'>
             {
                 brands?.length && brands?.map(brand =><BrandCard
                 key={brand._id}

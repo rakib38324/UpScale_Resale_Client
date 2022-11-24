@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 
 
@@ -10,6 +10,8 @@ const SignUp = () => {
 
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [signUpError, setSignUPError] = useState('')
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const { createUser, updateUser, signUpWitGoogle } = useContext(AuthContext)
 
@@ -68,9 +70,7 @@ const SignUp = () => {
                                     })
                                     .then(res => res.json())
                                     .then(result =>{
-                                        // console.log(result);
-                                        // toast.success(`${data.name} is added successfully`);
-                                        // navigate('/dashboard/managedoctors')
+                                        getUserToken(data.email);
                                     })
                                 }
                             })
@@ -82,6 +82,17 @@ const SignUp = () => {
                 console.log(error)
                 setSignUPError(error.message)
             });
+    }
+
+    const getUserToken = email =>{
+        fetch(`http://localhost:5000/JWT?email=${email}`)
+        .then(res => res.json())
+        .then(data => {
+            if(data.accessToken){
+                localStorage.setItem('accessToken', data.accessToken)
+                navigate('/')
+            }
+        })
     }
 
     const handleSignUpnWithGoogle = () => {

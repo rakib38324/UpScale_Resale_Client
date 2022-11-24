@@ -37,9 +37,9 @@ const Users = () => {
     const HandleMakeVerify = id =>{
         fetch(`http://localhost:5000/users/verify/${id}`,{
             method: 'PUT',
-            // headers: {
-            //     authorization: `bearer ${localStorage.getItem('accessToken')}`
-            // }
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
         })
         .then(res => res.json())
         .then(data => {
