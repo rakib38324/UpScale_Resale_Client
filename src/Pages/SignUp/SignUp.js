@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
+import useToken from '../../Hooks/UserTooken';
 
 
 
@@ -10,11 +11,18 @@ const SignUp = () => {
 
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [signUpError, setSignUPError] = useState('')
+
+    const [createdUserEmail, setCreatedUserEmail] = useState('')
+    const [token] = useToken(createdUserEmail)
     const location = useLocation();
     const navigate = useNavigate();
 
     const { createUser, updateUser, signUpWitGoogle } = useContext(AuthContext)
 
+    if (token) {
+        navigate('/')
+        
+    }
 
     const handleSignUp = (data) => {
         // console.log(data);
@@ -35,10 +43,10 @@ const SignUp = () => {
 
                         //Upload image and save database imgibb
                         const image = data.image[0];
-                        
+
                         const formData = new FormData();
                         formData.append('image', image);
-                        const imgKey=process.env.REACT_APP_IMG_KEY;
+                        const imgKey = process.env.REACT_APP_IMG_KEY;
                         console.log(image, imgKey)
                         const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imgKey}`;
 
@@ -49,13 +57,17 @@ const SignUp = () => {
                             .then(res => res.json())
                             .then(imgData => {
                                 if (imgData.success) {
+
+
+
                                     // console.log(imgData.data.url);
                                     const user = {
-                                        name: data.name, 
+                                        name: data.name,
                                         email: data.email,
                                         profileType: data.profileType,
                                         image: imgData.data.url
                                     }
+
 
                                     console.log(user)
 
@@ -63,15 +75,16 @@ const SignUp = () => {
                                     fetch('http://localhost:5000/users', {
                                         method: 'POST',
                                         headers: {
-                                            'content-type': 'application/json', 
+                                            'content-type': 'application/json',
                                             // authorization: `bearer ${localStorage.getItem('accessToken')}`
                                         },
                                         body: JSON.stringify(user)
                                     })
-                                    .then(res => res.json())
-                                    .then(result =>{
-                                        getUserToken(data.email);
-                                    })
+                                        .then(res => res.json())
+                                        .then(result => {
+                                            setCreatedUserEmail(data.email);
+                                            toast.success("Login Successfully")
+                                        })
                                 }
                             })
 
@@ -84,25 +97,82 @@ const SignUp = () => {
             });
     }
 
-    const getUserToken = email =>{
-        fetch(`http://localhost:5000/JWT?email=${email}`)
-        .then(res => res.json())
-        .then(data => {
-            if(data.accessToken){
-                localStorage.setItem('accessToken', data.accessToken)
-                navigate('/')
-            }
-        })
-    }
+
 
     const handleSignUpnWithGoogle = () => {
 
         signUpWitGoogle()
             .then(result => {
                 const user = result.user;
-                console.log(user)
-                toast.success("Login Successfully")
-                // const currentUser = { email: user.email }
+                // console.log(user.email)
+
+
+                //check the user is alive in our database,
+                //if user email found we can call for token,
+                //else at first create user then send database and then cal for token
+
+                if (user.email) {
+                    fetch(`http://localhost:5000/finduser?email=${user.email}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.accessToken) {
+                                toast.success("Login Successfully")
+                                return setCreatedUserEmail(user.email);
+                            }
+
+                            else {
+
+                                const profile = {
+                                    name: user.displayName,
+                                    email: user.email,
+                                    profileType: "User",
+                                    image: user.photoURL,
+                                }
+
+                                // Save user information to the database
+                                fetch('http://localhost:5000/users', {
+                                    method: 'POST',
+                                    headers: {
+                                        'content-type': 'application/json',                                  
+                                    },
+                                    body: JSON.stringify(profile)
+                                })
+                                    .then(res => res.json())
+                                    .then(result => {
+                                        setCreatedUserEmail(user.email);
+                                        toast.success("Login Successfully")
+                                    })
+
+
+
+                            }
+                        });
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             })
             .catch(error => console.log(error))
