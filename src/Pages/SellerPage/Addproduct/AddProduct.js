@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext, useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../Context/AuthProvider';
+import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
+
 
 const AddProduct = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -37,6 +37,7 @@ const AddProduct = () => {
 
         const formData = new FormData();
         formData.append('image', image);
+
         const imgKey = process.env.REACT_APP_IMG_KEY;
         // console.log(image, imgKey)
         const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imgKey}`;

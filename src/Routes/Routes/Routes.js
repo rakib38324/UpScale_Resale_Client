@@ -59,7 +59,7 @@ const router = createBrowserRouter([
                 element: <ReportItems></ReportItems>
             },
             {
-                path: '/myproducts',
+                path: '/myproduct',
                 element: <MyProduct></MyProduct>
             }
             

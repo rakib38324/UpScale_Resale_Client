@@ -96,14 +96,14 @@ const Users = () => {
                                 
                                 <td>{user.profileType}</td>
                                 <td>{
-                                    user?.verify !== 'verified' && <button onClick={()=>HandleMakeVerify(user._id)} className='btn btn-xs btn-primary'>Verify Seller</button>
+                                    user?.verify !== 'verified' && <button onClick={()=>HandleMakeVerify(user._id)} className='btn btn-xs bg-gradient-to-r from-primary to-secondary text-white'>Verify Seller</button>
                                     }
 
-{
-                                    user?.verify === 'verified' && <button  className='btn btn-xs bg-green-400 text-black'>Verified</button>
+                                {
+                                    user?.verify === 'verified' && <button  className='btn btn-xs bg-gradient-to-r from-green-600 to-green-800 text-white'>Verified</button>
                                 }
                                 </td>
-                                <td><button onClick={()=>HandleDeleteUser(user._id)} className='btn btn-xs  bg-red-200 text-black hover:bg-green-400'>Delete</button></td>
+                                <td><button onClick={()=>HandleDeleteUser(user._id)} className='btn btn-xs bg-gradient-to-r from-primary to-secondary text-white'>Delete</button></td>
                             </tr>)
                         }
                     </tbody>
