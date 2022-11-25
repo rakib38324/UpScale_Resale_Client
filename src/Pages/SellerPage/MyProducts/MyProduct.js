@@ -53,7 +53,7 @@ const MyProduct = () => {
 
                             <div>
                                 <div className="card bg-base-100 shadow-xl">
-                                    <figure><img className='w-full' src={product.image} alt="Shoes" /></figure>
+                                    <figure><img className='w-full h-48' src={product.image} alt="Shoes" /></figure>
                                     <div className="card-body">
                                         <h2 className="card-title">{product.ProductName}</h2>
                                         <p>Brand: {product.Brand}</p>

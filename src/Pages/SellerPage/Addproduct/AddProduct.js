@@ -69,6 +69,7 @@ const AddProduct = () => {
                     AddingDate: date,
                     Addingtime: time,
                     Years_of_use: data.years_of_use,
+                    status: 'Available'
                     
                 }
 
@@ -127,21 +128,21 @@ const AddProduct = () => {
                             <label className="label"> <span className="label-text text-green-800 font-bold ">Product Name</span></label>
                             <input type="text" {...register("name", {
                                 required: "Name is Required"
-                            })} className="input input-secondary input-bordered w-full max-w-xs" placeholder="Product Name" />
+                            })} className="input input-secondary input-bordered w-full max-w-xs" placeholder="Product Name" required/>
 
                         </div>
                         <div className="form-control w-full max-w-xs">
                             <label className="label"> <span className="label-text text-green-800 font-bold ">Original Price</span></label>
                             <input type="text" {...register("originalprice", {
                                 required: "Price is Required"
-                            })} className="input input-secondary input-bordered w-full max-w-xs" placeholder="Price" />
+                            })} className="input input-secondary input-bordered w-full max-w-xs" placeholder="Price" required />
 
                         </div>
                         <div className="form-control w-full max-w-xs">
                             <label className="label"> <span className="label-text text-green-800 font-bold ">Resale Price</span></label>
                             <input type="text" {...register("resaleprice", {
                                 required: "Price is Required"
-                            })} className="input input-secondary input-bordered w-full max-w-xs" placeholder="Price" />
+                            })} className="input input-secondary input-bordered w-full max-w-xs" placeholder="Price" required/>
 
                         </div>
                         <div className="form-control w-full max-w-xs">
@@ -149,7 +150,7 @@ const AddProduct = () => {
                             <input type="text" {...register("phone", {
                                 required: "Number is Required",
                                 minLength: { value: 11, message: "Phone Number must be 11 characters or long" }
-                            })} className="input input-secondary input-bordered w-full max-w-xs" placeholder="Phone number" />
+                            })} className="input input-secondary input-bordered w-full max-w-xs" placeholder="Phone number" required/>
                             {errors.phone && <p className='text-red-500'>{errors.password.message}</p>}
                         </div>
 
@@ -167,7 +168,7 @@ const AddProduct = () => {
                             <label className="label"> <span className="label-text text-green-800 font-bold ">Used with in Month/Years</span></label>
                             <input type="text" {...register("years_of_use", {
                                 required: "Name is Required"
-                            })} className="input input-secondary input-bordered w-full max-w-xs" placeholder="Six months" />
+                            })} className="input input-secondary input-bordered w-full max-w-xs" placeholder="Six months" required/>
 
                         </div>
 
@@ -212,7 +213,7 @@ const AddProduct = () => {
                             <label className="label"> <span className="label-text text-green-800 font-bold">Image</span></label>
                             <input type="file" {...register("image", {
                                 required: "Photo is Required"
-                            })} className="input input-secondary input-secondary w-full max-w-xs pt-2" />
+                            })} className="input input-secondary input-secondary w-full max-w-xs pt-2" required/>
                             {errors.img && <p className='text-red-500'>{errors.img.message}</p>}
                         </div>
 
@@ -221,7 +222,7 @@ const AddProduct = () => {
 
                             <textarea {...register("details", {
                                 required: "Details is Required"
-                            })} className="textarea textarea-secondary border-secondary" placeholder="Details"></textarea>
+                            })} className="textarea textarea-secondary border-secondary" placeholder="Details" required></textarea>
                         </div>
 
                         
@@ -229,7 +230,9 @@ const AddProduct = () => {
 
 
 
-                    <div className='text-center my-10'><input className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white w-1/4 mt-2' value="Add Product" type="submit" /></div>
+                    <div className='text-center my-10'><input className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white w-1/4 mt-2' value="Add Product" type="submit" />
+                    
+                    </div>
                     <div>
                         {signUpError && <p className='text-red-600'>{signUpError}</p>}
                     </div>
