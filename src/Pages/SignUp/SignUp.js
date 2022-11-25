@@ -4,9 +4,6 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import useToken from '../../Hooks/UserTooken';
-import useAdmin from '../../Hooks/UseAdmin';
-import UserHook from '../../Hooks/UserHook';
-import UseSeller from '../../Hooks/UseSeller';
 
 
 
@@ -18,9 +15,7 @@ const SignUp = () => {
     const [createdUserEmail, setCreatedUserEmail] = useState('')
     const [token] = useToken(createdUserEmail)
 
-    const [isAdmin] = useAdmin(createdUserEmail)
-    const [isSeller] = UseSeller(createdUserEmail)
-    const [isUser] = UserHook(createdUserEmail)
+    
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -156,30 +151,6 @@ const SignUp = () => {
                             }
                         });
                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
             })

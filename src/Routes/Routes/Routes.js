@@ -38,8 +38,9 @@ const router = createBrowserRouter([
                 element: <Users></Users>
             },
             {
-                path: '/addproducts',
-                element: <AddProduct></AddProduct>
+                path: '/addproducts/:email',
+                element: <AddProduct></AddProduct>,
+                loader: ({params}) => fetch(`http://localhost:5000/brand/${params.email}`)
             },
             {
                 path: '/allseller',

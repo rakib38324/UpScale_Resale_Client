@@ -10,7 +10,6 @@ const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext)
 
-    console.log(user?.email)
 
     const [isAdmin] = useAdmin(user?.email)
     const [isSeller] = UseSeller(user?.email)
@@ -50,7 +49,7 @@ const Navbar = () => {
         }
         {
             isSeller && <>
-                <li><Link to="/addproducts">Add Products</Link></li>
+                <li><Link to={`/addproducts/${user.email}`}>Add Products</Link></li>
                 <li><Link to="/myproducts">My Products</Link></li>
                 <li><Link to="/mybuyers">My Buyer</Link></li>
             </>

@@ -17,21 +17,7 @@ const Users = () => {
     })
 
 
-    const HandleMakeAdmin = id =>{
-        fetch(`http://localhost:5000/users/admin/${id}`,{
-            method: 'PUT',
-            headers: {
-                authorization: `bearer ${localStorage.getItem('accessToken')}`
-            }
-        })
-        .then(res => res.json())
-        .then(data => {
-            if(data.modifiedCount > 0){
-                toast.success(`Make Admin Successfully.`);
-                refetch();
-            }
-        })
-    }
+
 
     const HandleMakeVerify = id =>{
         fetch(`http://localhost:5000/users/verify/${id}`,{
@@ -80,7 +66,6 @@ const Users = () => {
                             <th>Image</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Admin</th>
                             <th>Type Of User</th>
                             <th>Verify Seller</th>
                             <th>Delete</th>
@@ -108,14 +93,8 @@ const Users = () => {
                                 </div></th>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
-                                <td>{
-                                    user?.role !== 'admin' && <button onClick={()=>HandleMakeAdmin(user._id)} className='btn btn-xs btn-primary'>Make Admin</button>
-                                }
-                                {
-                                    user?.role === 'admin' && <button  className='btn btn-xs bg-green-400 text-black'>Admin</button>
-                                }
-                                </td>
-                                <td><button className='btn btn-xs bg-blue-500 text-black'>{user.profileType}</button></td>
+                                
+                                <td>{user.profileType}</td>
                                 <td>{
                                     user?.verify !== 'verified' && <button onClick={()=>HandleMakeVerify(user._id)} className='btn btn-xs btn-primary'>Verify Seller</button>
                                     }
@@ -124,7 +103,7 @@ const Users = () => {
                                     user?.verify === 'verified' && <button  className='btn btn-xs bg-green-400 text-black'>Verified</button>
                                 }
                                 </td>
-                                <td><button onClick={()=>HandleDeleteUser(user._id)} className='btn btn-xs  bg-blue-500 text-black hover:bg-green-400'>Delete</button></td>
+                                <td><button onClick={()=>HandleDeleteUser(user._id)} className='btn btn-xs  bg-red-200 text-black hover:bg-green-400'>Delete</button></td>
                             </tr>)
                         }
                     </tbody>
