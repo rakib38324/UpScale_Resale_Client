@@ -23,7 +23,7 @@ const ChooseBrand = () => {
             {
                 brands?.length && brands?.map(brand => <>
                     
-                    <div className="card card-compact m-2 bg-base-100 shadow-xl">
+                    <div className="card card-compact m-2 bg-green-100 shadow-xl">
                         <figure><img className='w-full h-[150px]' src={brand.img} alt="Shoes" /></figure>
                         <div className="card-body">
                             <h2 className="card-title">{brand.name}</h2>

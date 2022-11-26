@@ -1,9 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../Context/AuthProvider';
 import ChooseBrand from '../../Home/Banner/ChooseBrand';
+import Loading from '../../Shared/Loading/Loading';
+import SmallLoading from '../../Shared/Loading/SmallLoading';
 
 
 const AddProduct = () => {
@@ -11,6 +14,8 @@ const AddProduct = () => {
     const [signUpError, setSignUPError] = useState('');
     const location = useLocation();
     const navigate = useNavigate();
+
+    const {loading,setLoading} = useContext(AuthContext)
 
 
 
@@ -32,6 +37,7 @@ const AddProduct = () => {
 
     const handleAddProduct = (data) => {
         setSignUPError('');
+        setLoading(true)
 
         //Upload image and save database imgibb
         const image = data.image[0];
@@ -90,6 +96,7 @@ const AddProduct = () => {
                     .then(result => {
 
                         toast.success("Product Add Successfully")
+                        setLoading(false)
                         navigate('/');
                     })
 
@@ -98,6 +105,9 @@ const AddProduct = () => {
     }
 
 
+    if(loading){
+        <SmallLoading></SmallLoading>
+    }
 
 
     return (
@@ -245,7 +255,10 @@ const AddProduct = () => {
 
 
 
-                        <div className='text-center my-10'><input className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white lg:w-1/4 mt-2' value="Add Product" type="submit" />
+                        <div className='text-center my-10'>
+
+                            <button  className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white lg:w-1/4 '>  { loading ? <SmallLoading></SmallLoading> : 'Add Product' } </button>
+                            
 
                         </div>
                         <div>
