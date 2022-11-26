@@ -59,8 +59,9 @@ const router = createBrowserRouter([
                 element: <ReportItems></ReportItems>
             },
             {
-                path: '/myproduct',
-                element: <MyProduct></MyProduct>
+                path: '/myproduct/:email',
+                element: <MyProduct></MyProduct>,
+                loader: ({params}) => fetch(`http://localhost:5000/brand/${params.email}`)
             }
             
 

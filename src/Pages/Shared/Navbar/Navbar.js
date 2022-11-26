@@ -49,8 +49,8 @@ const Navbar = () => {
         }
         {
             isSeller && <>
-                <li><Link to={`/addproducts/${user.email}`}>Add Products</Link></li>
-                <li><Link to='/myproduct'>My Products</Link></li>
+                <li><Link to={`/addproducts/${user?.email}`}>Add Products</Link></li>
+                <li><Link to={`/myproduct/${user?.email}`}>My Products</Link></li>
                 <li><Link to="/mybuyers">My Buyer</Link></li>
             </>
         }

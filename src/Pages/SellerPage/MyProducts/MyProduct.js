@@ -3,15 +3,16 @@ import { useQuery } from '@tanstack/react-query';
 import { AuthContext } from '../../../Context/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
 import toast from 'react-hot-toast';
+import { useLoaderData } from 'react-router-dom';
 
 const MyProduct = () => {
 
-    const { user } = useContext(AuthContext)
+    const seller = useLoaderData();
 
     const { data: products = [], refetch, isLoading } = useQuery({
         queryKey: ['Products'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/myproducts/${user.email}`, {
+            const res = await fetch(`http://localhost:5000/myproducts/${seller.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -31,7 +32,24 @@ const MyProduct = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.modifiedCount > 0) {
-                    toast.success(`Make Verify Successfully.`);
+                    toast.success(`Make Available Successfully.`);
+                    refetch();
+                }
+            })
+    }
+
+
+    const HandleDelete = id => {
+        fetch(`http://localhost:5000/product/status/${id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    toast.success(`Delete Successfully.`);
                     refetch();
                 }
             })
@@ -52,7 +70,7 @@ const MyProduct = () => {
                         <div>
 
                             <div>
-                                <div className="card bg-base-100 shadow-xl">
+                                <div className="card bg-base-100 shadow-xl m-2">
                                     <figure><img className='w-full h-48' src={product.image} alt="Shoes" /></figure>
                                     <div className="card-body">
                                         <h2 className="card-title">{product.ProductName}</h2>
@@ -70,6 +88,7 @@ const MyProduct = () => {
                                             {
                                                 product.status === 'Sold' && <>
                                                     <button onClick={() => HandleMakeAvailable(product._id)} className="btn btn-sm bg-gradient-to-r from-primary to-secondary text-white">Make Available</button>
+                                                    <button onClick={() => HandleDelete(product._id)} className="btn btn-sm bg-gradient-to-r from-primary to-secondary text-white">Delete</button>
                                                 </>
                                             }
                                             {

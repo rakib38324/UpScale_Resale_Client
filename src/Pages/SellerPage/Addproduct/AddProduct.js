@@ -124,6 +124,25 @@ const AddProduct = () => {
                             })} className="input input-secondary input-bordered w-full max-w-xs" defaultValue={seller.email} readOnly />
 
                         </div>
+
+
+
+                        <div className="form-control w-full max-w-xs">
+                            <label className="label"> <span className="label-text text-green-800 font-bold">Please Select Brand</span></label>
+                            <select
+                                {...register('brand')}
+                                className="select input-secondary w-full max-w-xs">
+                                {
+                                    Brand_Name?.length && Brand_Name.map(brand => <option
+                                        key={brand._id}
+                                        value={brand.name}
+                                    >{brand.name}</option>)
+                                }
+
+
+                            </select>
+                        </div>
+
                         <div className="form-control w-full max-w-xs">
                             <label className="label"> <span className="label-text text-green-800 font-bold ">Product Name</span></label>
                             <input type="text" {...register("name", {
@@ -192,22 +211,6 @@ const AddProduct = () => {
 
 
 
-
-                        <div className="form-control w-full max-w-xs">
-                            <label className="label"> <span className="label-text text-green-800 font-bold">Please Select Brand</span></label>
-                            <select
-                                {...register('brand')}
-                                className="select input-secondary w-full max-w-xs">
-                                {
-                                    Brand_Name?.length && Brand_Name.map(brand => <option
-                                        key={brand._id}
-                                        value={brand.name}
-                                    >{brand.name}</option>)
-                                }
-
-
-                            </select>
-                        </div>
 
                         <div className="form-control w-full max-w-xs">
                             <label className="label"> <span className="label-text text-green-800 font-bold">Image</span></label>
