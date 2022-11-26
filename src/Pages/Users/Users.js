@@ -56,12 +56,12 @@ const Users = () => {
     }
 
     return (
-        <div>
-            <h1 className='text-3xl text-center my-10'> All Users</h1>
-            <div className="overflow-x-auto mb-20">
-                <table className="table w-full">
+        <div >
+            <h1 className='text-3xl text-center mt-1 py-10'> All Users</h1>
+            <div className="overflow-x-auto mb-20 ">
+                <table className="table w-full bg-gradient-to-r from-green-300 to-blue-400 rounded-2xl">
                     <thead>
-                        <tr>
+                        <tr className='bg-gradient-to-r from-green-300 to-blue-400 rounded-2xl'>
                             <th></th>
                             <th>Image</th>
                             <th>Name</th>
@@ -71,7 +71,7 @@ const Users = () => {
                             <th>Delete</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className='bg-gradient-to-r from-green-300 to-blue-400 rounded-2xl'>
                         {
                             users?.length && users?.map((user, i) => <tr key={user._id}>
                                 

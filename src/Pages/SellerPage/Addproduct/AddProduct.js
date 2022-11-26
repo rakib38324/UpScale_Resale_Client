@@ -71,6 +71,7 @@ const AddProduct = () => {
                     Years_of_use: data.years_of_use,
                     status: 'Available',
                     brand_id: data.brand_id,
+                    seller_status: data.verify
 
                 }
 
@@ -100,7 +101,7 @@ const AddProduct = () => {
 
 
     return (
-        <div className='bg-gradient-to-r from-purple-300 to-blue-400 rounded-lg'>
+        <div className='bg-gradient-to-r from-purple-300 to-blue-400 mt-1 mb-3 rounded-2xl'>
            
 
             <div>
@@ -109,7 +110,7 @@ const AddProduct = () => {
 
                     <form onSubmit={handleSubmit(handleAddProduct)}>
 
-                        <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+                        <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4'>
                             <div className="form-control w-full max-w-xs">
                                 <label className="label"> <span className="label-text text-black font-bold ">Your Name</span></label>
                                 <input type="text" {...register("sellername", {
@@ -120,9 +121,18 @@ const AddProduct = () => {
                             </div>
 
                             <div className="form-control w-full max-w-xs">
+                                <label className="label"> <span className="label-text text-black font-bold ">Your Status</span></label>
+                                <input type="text" {...register("verify", {
+                                    required: "Verify is Required"
+                                })} className="input input-secondary input-bordered w-full max-w-xs" defaultValue={seller.verify} readOnly />
+                                {errors.verify && <p className='text-red-500'>{errors.password.message}</p>}
+
+                            </div>
+
+                            <div className="form-control w-full max-w-xs">
                                 <label className="label"> <span className="label-text text-black font-bold ">Your Email</span></label>
                                 <input type="text" {...register("selleremail", {
-                                    required: "Name is Required"
+                                    required: "Email is Required"
                                 })} className="input input-secondary input-bordered w-full max-w-xs" defaultValue={seller.email} readOnly />
                                 {errors.selleremail && <p className='text-red-500'>{errors.password.message}</p>}
                             </div>
@@ -155,21 +165,21 @@ const AddProduct = () => {
                             <div className="form-control w-full max-w-xs">
                                 <label className="label"> <span className="label-text text-black font-bold ">Original Price</span></label>
                                 <input type="text" {...register("originalprice", {
-                                    required: "Price is Required"
+                                    required: "Original Price is Required"
                                 })} className="input input-secondary input-bordered w-full max-w-xs" placeholder="Original Price" required />
                                 {errors.originalprice && <p className='text-red-500'>{errors.originalprice.message}</p>}
                             </div>
                             <div className="form-control w-full max-w-xs">
                                 <label className="label"> <span className="label-text text-black font-bold ">Resale Price</span></label>
                                 <input type="text" {...register("resaleprice", {
-                                    required: "Price is Required"
+                                    required: "Resale Price is Required"
                                 })} className="input input-secondary input-bordered w-full max-w-xs" placeholder="Resell Price" required />
                                 {errors.resaleprice && <p className='text-red-500'>{errors.resaleprice.message}</p>}
                             </div>
                             <div className="form-control w-full max-w-xs">
                                 <label className="label"> <span className="label-text text-black font-bold ">Phone Number</span></label>
                                 <input type="text" {...register("phone", {
-                                    required: "Number is Required",
+                                    required: "Phone Number is Required",
                                     minLength: { value: 11, message: "Phone Number must be 11 characters or long" }
                                 })} className="input input-secondary input-bordered w-full max-w-xs" placeholder="Phone number" required />
                                 {errors.phone && <p className='text-red-500'>{errors.phone.message}</p>}
@@ -188,7 +198,7 @@ const AddProduct = () => {
                             <div className="form-control w-full max-w-xs">
                                 <label className="label"> <span className="label-text text-black font-bold ">Used with in Month/Years</span></label>
                                 <input type="text" {...register("years_of_use", {
-                                    required: "Name is Required"
+                                    required: "Use time is Required"
                                 })} className="input input-secondary input-bordered w-full max-w-xs" placeholder="Six months" required />
                                 {errors.years_of_use && <p className='text-red-500'>{errors.years_of_use.message}</p>}
                             </div>
@@ -222,12 +232,12 @@ const AddProduct = () => {
                                 {errors.image && <p className='text-red-500'>{errors.image.message}</p>}
                             </div>
 
-                            <div className="form-control w-full max-w-xs">
+                            <div className="form-control mr-3 lg:col-span-4 ">
                                 <label className="label"> <span className="label-text text-black font-bold ">Details</span></label>
 
                                 <textarea {...register("details", {
                                     required: "Details is Required"
-                                })} className="textarea textarea-secondary border-secondary" placeholder="Details" required></textarea>
+                                })} className="textarea textarea-secondary border-secondary " placeholder="Details" required></textarea>
                             </div>
 
                             {errors.details && <p className='text-red-500'>{errors.details.message}</p>}
@@ -235,7 +245,7 @@ const AddProduct = () => {
 
 
 
-                        <div className='text-center my-10'><input className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white w-1/4 mt-2' value="Add Product" type="submit" />
+                        <div className='text-center my-10'><input className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white lg:w-1/4 mt-2' value="Add Product" type="submit" />
 
                         </div>
                         <div>

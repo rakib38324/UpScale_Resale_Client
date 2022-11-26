@@ -60,9 +60,9 @@ const MyProduct = () => {
     }
     return (
 
-        <div>
+        <div className='bg-gradient-to-r from-green-300 to-blue-400 rounded-2xl pt-5 mt-1 mb-3'>
             <h1 className='my-8 text-4xl font-bold text-center'>All Products</h1>
-            <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 my-12'>
+            <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 '>
 
                 {
                     products?.length && products?.map((product) =>
@@ -70,8 +70,8 @@ const MyProduct = () => {
                         <div>
 
                             <div>
-                                <div className="card bg-base-100 shadow-xl m-2">
-                                    <figure><img className='w-full h-48' src={product.image} alt="Shoes" /></figure>
+                                <div className="card bg-green-100 shadow-xl m-2">
+                                    <figure><img className='w-full h-40' src={product.image} alt="Shoes" /></figure>
                                     <div className="card-body">
                                         <h2 className="card-title">{product.ProductName}</h2>
                                         <p>Brand: {product.Brand}</p>

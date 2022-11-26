@@ -12,6 +12,7 @@ import MyBuyers from "../../Pages/SellerPage/MyBuyers/MyBuyers";
 import ReportItems from "../../Pages/AdminPage/ReportItems/ReportItems";
 import MyProduct from "../../Pages/SellerPage/MyProducts/MyProduct";
 import ChooseBrand from "../../Pages/Home/Banner/ChooseBrand";
+import Products from "../../Pages/Product/Products/Products";
 
 const router = createBrowserRouter([
     {
@@ -67,6 +68,11 @@ const router = createBrowserRouter([
                 path: '/myproduct/:email',
                 element: <MyProduct></MyProduct>,
                 loader: ({params}) => fetch(`http://localhost:5000/brand/${params.email}`)
+            },
+            {
+                path: '/products/:id',
+                element: <Products></Products>,
+                loader: ({params}) => fetch(`http://localhost:5000/products/${params.id}`)
             },
             
             
