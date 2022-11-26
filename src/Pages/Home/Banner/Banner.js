@@ -7,7 +7,7 @@ import pic4 from './BannerImage/4.jpg'
 
 const Banner = () => {
     return (
-        <div className="carousel max-w-[1300px] mx-auto my-5   rounded-2xl">
+        <div className="carousel w-full mx-auto my-5   rounded-2xl ">
             <div id="slide1" className="carousel-item relative w-full">
                 <img src={pic1} alt='' className="w-full" />
                 <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">

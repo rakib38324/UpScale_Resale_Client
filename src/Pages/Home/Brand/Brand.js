@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import BrandCard from './BrandCard';
 
 const Brand = () => {
-    const { data: brands = [], refetch, isLoading } = useQuery({
+    const { data: brands = []} = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/brand');

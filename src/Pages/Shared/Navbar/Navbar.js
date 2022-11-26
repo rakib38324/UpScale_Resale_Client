@@ -29,42 +29,44 @@ const Navbar = () => {
     // console.log(isAdmin,isSeller,isUser)
 
     const menuItems = <React.Fragment>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/blogs">Blogs</Link></li>
-        <li><Link to="/allusers">All Users</Link></li>
+        <li className='font-bold' ><Link to="/">Home</Link></li>
+        
+        <li className='font-bold' ><Link to="/allusers">All Users</Link></li>
+        
 
 
         {
             isUser && <>
-                <li><Link to="/myorder">My Order</Link></li>
+                <li className='font-bold' ><Link to="/myorder">My Order</Link></li>
             </>
         }
         {
             isAdmin && <>
               
-                <li><Link to="/allseller">All Seller</Link></li>
-                <li><Link to="/allbuyer">All Buyer</Link></li>
-                <li><Link to="/reportitems">Reported Items</Link></li>
+                <li className='font-bold' ><Link to="/allseller">All Seller</Link></li>
+                <li className='font-bold' ><Link to="/allbuyer">All Buyer</Link></li>
+                <li className='font-bold' ><Link to="/reportitems">Reported Items</Link></li>
             </>
         }
         {
             isSeller && <>
-                <li><Link to={`/addproducts/${user?.email}`}>Add Products</Link></li>
-                <li><Link to={`/myproduct/${user?.email}`}>My Products</Link></li>
-                <li><Link to="/mybuyers">My Buyer</Link></li>
+                <li className='font-bold' ><Link to={`/addproducts/${user?.email}`}>Add Products</Link></li>
+                <li className='font-bold' ><Link to={`/myproduct/${user?.email}`}>My Products</Link></li>
+                <li className='font-bold' ><Link to="/mybuyers">My Buyer</Link></li>
             </>
         }
+        <li className='font-bold' ><Link to="/blogs">Blogs</Link></li>
         {
             user?.uid ?
                 <>
-                    <li><button onClick={handleLogOut}>Sign out</button></li>
+                    <li className='font-bold'><button onClick={handleLogOut}>Sign out</button></li>
                 </>
-                : <li><Link to="/login">Login</Link></li>
+                : <li className='font-bold' ><Link to="/login">Login</Link></li>
         }
     </React.Fragment>
 
     return (
-        <div className="navbar bg-base-100 flex justify-between">
+        <div className="navbar bg-gradient-to-r from-blue-100 to-blue-400 flex justify-between rounded-xl">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
