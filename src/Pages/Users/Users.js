@@ -51,9 +51,7 @@ const Users = () => {
         })
     }
 
-    if(isLoading){
-        return <Loading></Loading>
-    }
+   
 
     return (
         <div >

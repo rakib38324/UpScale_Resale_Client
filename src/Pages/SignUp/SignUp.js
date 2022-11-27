@@ -20,11 +20,12 @@ const SignUp = () => {
 
     const location = useLocation();
     const navigate = useNavigate();
+    const from = location.state?.from?.pathname || '/';
 
     const { createUser, updateUser, signUpWitGoogle, loading, setLoading } = useContext(AuthContext)
 
     if (token) {
-        navigate('/')
+        navigate(from , {replace: true})
     }
 
     const handleSignUp = (data) => {

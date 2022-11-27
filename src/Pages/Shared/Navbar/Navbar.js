@@ -5,25 +5,34 @@ import { AuthContext } from '../../../Context/AuthProvider';
 import useAdmin from '../../../Hooks/UseAdmin';
 import UserHook from '../../../Hooks/UserHook';
 import UseSeller from '../../../Hooks/UseSeller';
+import Loading from '../Loading/Loading';
 
 const Navbar = () => {
+    
 
-    const { user, logOut } = useContext(AuthContext)
+    const { user, logOut,loading,setLoading } = useContext(AuthContext)
 
-
+    
     const [isAdmin] = useAdmin(user?.email)
     const [isSeller] = UseSeller(user?.email)
     const [isUser] = UserHook(user?.email)
     const navigate = useNavigate();
+    
 
     const handleLogOut = () => {
+       
         logOut()
+        setLoading(true)
             .then(() => {
-                toast.success('Log Out Successfully')
                 localStorage.removeItem('accessToken')
+                toast.success('Log Out Successfully')
+                
                 navigate('/')
+                setLoading(false)
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                setLoading(false)
+                console.log(err)});
     }
 
     // console.log(isAdmin,isSeller,isUser)
@@ -59,11 +68,15 @@ const Navbar = () => {
         {
             user?.uid ?
                 <>
-                    <li className='font-bold'><button onClick={handleLogOut}>Sign out</button></li>
+                    <li className='font-bold'><button onClick={handleLogOut}>Sign Out</button></li>
                 </>
                 : <li className='font-bold' ><Link to="/login">Login</Link></li>
         }
     </React.Fragment>
+
+    if(loading){
+        <Loading></Loading>
+    }
 
     return (
         <div className="navbar bg-gradient-to-r from-blue-100 to-blue-400 flex justify-between rounded-xl">

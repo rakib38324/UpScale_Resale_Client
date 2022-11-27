@@ -13,6 +13,9 @@ import ReportItems from "../../Pages/AdminPage/ReportItems/ReportItems";
 import MyProduct from "../../Pages/SellerPage/MyProducts/MyProduct";
 import ChooseBrand from "../../Pages/Home/Banner/ChooseBrand";
 import Products from "../../Pages/Product/Products/Products";
+import AdminRoutes from "../AdminRoutes/AdminRouts";
+import SellerRouts from "../SellerRoutes/SellerRouts";
+import PrivateRoutes from "../PrivateRoutes/PrivateRouts";
 
 const router = createBrowserRouter([
     {
@@ -33,32 +36,32 @@ const router = createBrowserRouter([
             },
             {
                 path: '/myorder',
-                element: <MyOrder></MyOrder>
+                element: <PrivateRoutes><MyOrder></MyOrder></PrivateRoutes>
             },
             {
                 path: '/allusers',
-                element: <Users></Users>
+                element: <PrivateRoutes><AdminRoutes><Users></Users></AdminRoutes></PrivateRoutes>
             },
             {
                 path: '/addproducts/:email',
-                element: <AddProduct></AddProduct>,
+                element: <PrivateRoutes><SellerRouts><AddProduct></AddProduct></SellerRouts></PrivateRoutes>,
                 loader: ({params}) => fetch(`http://localhost:5000/brand/${params.email}`)
             },
             {
                 path: '/allseller',
-                element: <AllSeller></AllSeller>
+                element: <PrivateRoutes><AdminRoutes><AllSeller></AllSeller></AdminRoutes></PrivateRoutes>
             },
             {
                 path: '/allbuyer',
-                element: <AllBuyer></AllBuyer>
+                element: <PrivateRoutes><AdminRoutes><AllBuyer></AllBuyer></AdminRoutes></PrivateRoutes>
             },
             {
                 path: '/mybuyers',
-                element: <MyBuyers></MyBuyers>
+                element: <PrivateRoutes><SellerRouts><MyBuyers></MyBuyers></SellerRouts></PrivateRoutes>
             },
             {
                 path: '/reportitems',
-                element: <ReportItems></ReportItems>
+                element: <PrivateRoutes><AdminRoutes><ReportItems></ReportItems></AdminRoutes></PrivateRoutes>
             },
             {
                 path: '/choosebrand',
@@ -66,7 +69,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/myproduct/:email',
-                element: <MyProduct></MyProduct>,
+                element: <PrivateRoutes><SellerRouts><MyProduct></MyProduct></SellerRouts></PrivateRoutes>,
                 loader: ({params}) => fetch(`http://localhost:5000/brand/${params.email}`)
             },
             {
