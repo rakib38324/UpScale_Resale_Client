@@ -4,6 +4,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import useToken from '../../Hooks/UserTooken';
+import SmallLoading from '../Shared/Loading/SmallLoading';
 
 
 
@@ -15,12 +16,12 @@ const SignUp = () => {
     const [createdUserEmail, setCreatedUserEmail] = useState('')
     const [token] = useToken(createdUserEmail)
 
-    
+
 
     const location = useLocation();
     const navigate = useNavigate();
 
-    const { createUser, updateUser, signUpWitGoogle } = useContext(AuthContext)
+    const { createUser, updateUser, signUpWitGoogle, loading, setLoading } = useContext(AuthContext)
 
     if (token) {
         navigate('/')
@@ -28,6 +29,7 @@ const SignUp = () => {
 
     const handleSignUp = (data) => {
         // console.log(data);
+        setLoading(true)
 
         setSignUPError('');
         createUser(data.email, data.password)
@@ -68,7 +70,8 @@ const SignUp = () => {
                                     name: data.name,
                                     email: data.email,
                                     profileType: data.profileType,
-                                    image: imgData.data.url
+                                    image: imgData.data.url,
+                                    verify: 'Unverified',
                                 }
 
 
@@ -86,6 +89,7 @@ const SignUp = () => {
                                     .then(res => res.json())
                                     .then(result => {
                                         setCreatedUserEmail(data.email);
+                                        setLoading(false)
                                         toast.success("Login Successfully")
                                     })
 
@@ -96,6 +100,7 @@ const SignUp = () => {
             })
             .catch(error => {
                 console.log(error)
+                setLoading(false)
                 setSignUPError(error.message)
             });
     }
@@ -103,6 +108,8 @@ const SignUp = () => {
 
 
     const handleSignUpnWithGoogle = () => {
+
+        setLoading(true)
 
         signUpWitGoogle()
             .then(result => {
@@ -130,8 +137,10 @@ const SignUp = () => {
                                     email: user.email,
                                     profileType: "User",
                                     image: user.photoURL,
+                                    verify: 'Unverified',
                                 }
 
+                                // console.log(profile)
                                 // Save user information to the database
                                 fetch('http://localhost:5000/users', {
                                     method: 'POST',
@@ -143,6 +152,7 @@ const SignUp = () => {
                                     .then(res => res.json())
                                     .then(result => {
                                         setCreatedUserEmail(user.email);
+                                        setLoading(false)
                                         toast.success("Login Successfully")
                                     })
 
@@ -154,7 +164,9 @@ const SignUp = () => {
 
 
             })
-            .catch(error => console.log(error))
+            .catch(error =>{
+                setLoading(false)
+                 console.log(error)})
 
     }
 
@@ -211,16 +223,21 @@ const SignUp = () => {
                         {errors.img && <p className='text-red-500'>{errors.img.message}</p>}
                     </div>
 
+                    <div className='text-center my-5'>
 
+                        <button className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white w-full mt-2 '>  {loading ? <SmallLoading></SmallLoading> : 'Sign Up'} </button>
 
-                    <input className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white w-full mt-2' value="SignUp" type="submit" />
-                    <div>
+                        <div>
                         {signUpError && <p className='text-red-600'>{signUpError}</p>}
                     </div>
+                    </div>
+
+                    {/* <input className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white w-full mt-2' value="SignUp" type="submit" /> */}
+                    
                 </form>
                 <p className='pt-2'>Have an Account? <Link className='text-secondary font-bold' to="/login">Please Login</Link></p>
                 <div className="divider text-secondary font-bold">OR</div>
-                <button onClick={handleSignUpnWithGoogle} className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white w-full '>CONTINUE WITH GOOGLE</button>
+                <button onClick={handleSignUpnWithGoogle} className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white w-full '>{loading ? <SmallLoading></SmallLoading> : 'SIGN UP WITH GOOGLE'}</button>
             </div>
         </div>
     );

@@ -29,7 +29,7 @@ const ChooseBrand = () => {
                             <h2 className="card-title">{brand.name}</h2>
                             <p>{brand.details}</p>
                             <div className="card-actions justify-center">
-                                <Link to={`/products/${brand._id}`}><button  className="btn btn-primary bg-gradient-to-r from-primary to-secondary text-white">Choose</button></Link>
+                                <Link to={`/category/${brand._id}`}><button  className="btn btn-primary bg-gradient-to-r from-primary to-secondary text-white">Choose</button></Link>
                             </div>
                         </div>
                     </div>

@@ -82,7 +82,7 @@ const Users = () => {
                                         <img src={user.image} alt="Avatar Tailwind CSS Component" />
                                     </div>
                                     {
-                                        user.verify ?
+                                        user.verify === 'verify'?
                                         <>
                                         <p className='absolute right-0 bottom-0 text-blue-600'><FaCheckCircle></FaCheckCircle></p>
                                         </>

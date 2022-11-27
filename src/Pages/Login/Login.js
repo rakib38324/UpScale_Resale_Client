@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import useToken from '../../Hooks/UserTooken';
+import SmallLoading from '../Shared/Loading/SmallLoading';
 
 const Login = () => {
 
@@ -17,7 +18,7 @@ const Login = () => {
     const [loginError, setLoginError] = useState('');
 
 
-    const {signIn,signUpWitGoogle} = useContext(AuthContext)
+    const {signIn,signUpWitGoogle,loading,setLoading} = useContext(AuthContext)
 
 
 
@@ -26,39 +27,51 @@ const Login = () => {
     }
 
     const handleLogin = data => {
-        console.log(data);
+        // console.log(data);
+        setLoading(true)
         setLoginError('');
         signIn(data.email, data.password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                toast.success("LogIn Successfully")
+                toast.success("LogIn Successfully");
+                setLoading(false)
                 setLoginUserEmail(data.email);
             })
             .catch(error => {
                 console.log(error.message)
+                setLoading(false)
                 setLoginError(error.message);
+                
             });
     }
 
 
     const handleLoginWithGoogle = () => {
+        setLoading(true)
 
         signUpWitGoogle()
+
             .then(result => {
                 const user = result.user;
                 console.log(user)
                 setLoginUserEmail(user.email);
+                setLoading(false)
                 toast.success("Login Successfully")
             })
-            .catch(error => console.log(error))
+        .catch(error => {
+            setLoading(false)
+            console.log(error)})
 
     }
 
 
+
     return (
         <div className='h-[800px] flex justify-center items-center bg-blue-100 rounded-lg'>
+            
             <div className='w-96 p-7'>
+                
                 <h2 className='text-4xl text-secondary font-semibold text-center'>Login</h2>
                 <form onSubmit={handleSubmit(handleLogin)}>
                     <div className="form-control w-full max-w-xs">
@@ -81,14 +94,18 @@ const Login = () => {
                         <label className="label"> <span className="label-text text-secondary font-bold">Forget Password?</span></label>
                         {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
                     </div>
-                    <input className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white w-full ' value="Login" type="submit" />
-                    <div>
+                    <div className='text-center my-5'>
+
+                        <button className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white w-full mt-2 '> {loading ? <SmallLoading></SmallLoading> : 'LogIn'} </button>
+
+                        <div>
                         {loginError && <p className='text-red-600'>{loginError}</p>}
+                    </div>
                     </div>
                 </form>
                 <p className='pt-2'>New to UpScale ReSale? <Link className='text-secondary font-bold' to="/signup">Create new Account</Link></p>
                 <div className="divider text-secondary font-bold">OR</div>
-                <button onClick={handleLoginWithGoogle} className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white w-full'>CONTINUE WITH GOOGLE</button>
+                <button onClick={handleLoginWithGoogle} className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white w-full'>{loading ? <SmallLoading></SmallLoading> : 'LOG IN WITH GOOGLE'}</button>
             </div>
         </div>
     );

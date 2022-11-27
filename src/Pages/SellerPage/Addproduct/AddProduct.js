@@ -134,7 +134,9 @@ const AddProduct = () => {
                                 <label className="label"> <span className="label-text text-black font-bold ">Your Status</span></label>
                                 <input type="text" {...register("verify", {
                                     required: "Verify is Required"
-                                })} className="input input-secondary input-bordered w-full max-w-xs" defaultValue={seller.verify} readOnly />
+                                })} className="input input-secondary input-bordered w-full max-w-xs" 
+                                
+                                defaultValue={seller.verify} readOnly />
                                 {errors.verify && <p className='text-red-500'>{errors.password.message}</p>}
 
                             </div>

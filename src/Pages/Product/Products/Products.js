@@ -30,7 +30,7 @@ const Products = () => {
                 <div>
                 {
                     brands?.length && brands.map(brand => <>
-                        <Link to={`/products/${brand._id}`}><p className='text-center p-5 btn-primary bg-gradient-to-r from-primary to-secondary rounded-md m-3 font-semibold text-white '>{brand.name}</p></Link>
+                        <Link to={`/category/${brand._id}`}><p className='text-center p-5 btn-primary bg-gradient-to-r from-primary to-secondary rounded-md m-3 font-semibold text-white '>{brand.name}</p></Link>
                     </>)
                 }
                 </div>
@@ -56,7 +56,7 @@ const Products = () => {
                                     <figure><img className='w-full h-64' src={product.image} alt="" /></figure>
                                     <div className="card-body">
                                         <h2 className="card-title text-2xl">{product.ProductName}</h2>
-                                        <p className=' text-xl flex'>Seller Name: {product.SellerName}
+                                        <p className=' text-xl flex font-semibold'>Seller Name: {product.SellerName}
                                           {
                                             product.seller_status === 'verified'  ?
                                              <>
@@ -78,7 +78,7 @@ const Products = () => {
 
                                         <p className=' text-xl'>Posting time: {product.Addingtime}   {product.AddingDate} </p>
                                         <div className="card-actions justify-end">
-                                            <button className="btn btn-primary">Buy Now</button>
+                                            <button className="btn btn-primary">Book Now</button>
                                         </div>
                                     </div>
                                 </div>
