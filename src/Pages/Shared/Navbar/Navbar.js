@@ -8,40 +8,44 @@ import UseSeller from '../../../Hooks/UseSeller';
 import Loading from '../Loading/Loading';
 
 const Navbar = () => {
-    
 
-    const { user, logOut,loading,setLoading } = useContext(AuthContext)
 
-    
+    const { user, logOut, loading, setLoading } = useContext(AuthContext)
+
+
     const [isAdmin] = useAdmin(user?.email)
     const [isSeller] = UseSeller(user?.email)
     const [isUser] = UserHook(user?.email)
     const navigate = useNavigate();
-    
+
 
     const handleLogOut = () => {
-       
+
         logOut()
-        setLoading(true)
+        
             .then(() => {
                 localStorage.removeItem('accessToken')
                 toast.success('Log Out Successfully')
-                
+
                 navigate('/')
                 setLoading(false)
             })
             .catch(err => {
                 setLoading(false)
-                console.log(err)});
+                console.log(err)
+            });
     }
 
     // console.log(isAdmin,isSeller,isUser)
 
     const menuItems = <React.Fragment>
         <li className='font-bold' ><Link to="/">Home</Link></li>
-        
+
         <li className='font-bold' ><Link to="/allusers">All Users</Link></li>
+        <li className='font-bold' ><Link to="/category">Category</Link></li>
+
         
+
 
 
         {
@@ -51,7 +55,7 @@ const Navbar = () => {
         }
         {
             isAdmin && <>
-              
+
                 <li className='font-bold' ><Link to="/allseller">All Seller</Link></li>
                 <li className='font-bold' ><Link to="/allbuyer">All Buyer</Link></li>
                 <li className='font-bold' ><Link to="/reportitems">Reported Items</Link></li>
@@ -74,7 +78,7 @@ const Navbar = () => {
         }
     </React.Fragment>
 
-    if(loading){
+    if (loading) {
         <Loading></Loading>
     }
 

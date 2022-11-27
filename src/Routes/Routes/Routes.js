@@ -16,6 +16,7 @@ import Products from "../../Pages/Product/Products/Products";
 import AdminRoutes from "../AdminRoutes/AdminRouts";
 import SellerRouts from "../SellerRoutes/SellerRouts";
 import PrivateRoutes from "../PrivateRoutes/PrivateRouts";
+import Category from "../../Pages/Category/Category";
 
 const router = createBrowserRouter([
     {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
             {
                 path: '/signup',
                 element: <SignUp></SignUp>
+            },
+            {
+                path: '/category',
+                element: <Category></Category>
             },
             {
                 path: '/myorder',

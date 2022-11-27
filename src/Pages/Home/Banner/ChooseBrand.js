@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { AuthContext } from '../../../Context/AuthProvider';
+
 import { Link } from 'react-router-dom';
 
 const ChooseBrand = () => {
    
-    const {user} = useContext(AuthContext)
+    
     
     const { data: brands = [] } = useQuery({
         queryKey: ['users'],
@@ -18,13 +18,13 @@ const ChooseBrand = () => {
     console.log(brands.length)
     return (
         <div className='bg-gradient-to-r from-green-300 to-blue-400 py-10 rounded-lg mb-5'>
-            <h1 className='text-4xl text-center font-bold'>Which Category Product do you want to Select?</h1>
+            <h1 className='text-4xl text-center font-bold'>Which category product do you want to select?</h1>
             <div className='grid lg:grid-cols-3 my-20 gap-3'>
             {
                 brands?.length && brands?.map(brand => <>
                     
                     <div className="card card-compact m-2 bg-green-100 shadow-xl">
-                        <figure><img className='w-full h-[150px]' src={brand.img} alt="Shoes" /></figure>
+                        <figure><img className='w-full h-[150px]' src={brand.img} alt="" /></figure>
                         <div className="card-body">
                             <h2 className="card-title">{brand.name}</h2>
                             <p>{brand.details}</p>

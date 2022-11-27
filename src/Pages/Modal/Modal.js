@@ -27,9 +27,16 @@ const Modal = ({ title, message, successButtonName, closeModal, modalData, succe
             buyeremail: data.buyeremail,
             buyerphone: data.phone,
             meetinglocation: data.meetinglocation,
+            seller_email: modalData.SellerEmail,
+            seller_id: modalData.Seller_id,
+            image:modalData.image,
+            SellerName:modalData.SellerName,
+            use_of_years:modalData.Years_of_use,
+            Seller_Location:modalData.Location,
+            phone_condition: modalData.Condition             
 
         }
-        console.log(productInfo)
+        // console.log(productInfo)
 
 
         // Save user information to the database
@@ -58,7 +65,7 @@ const Modal = ({ title, message, successButtonName, closeModal, modalData, succe
                         if (data.modifiedCount > 0) {
                             toast.success(`Booked Successfully.`);
                             setLoading(false)
-                            // navigate('/');
+                            navigate('/myorder');
 
                         }
                     })

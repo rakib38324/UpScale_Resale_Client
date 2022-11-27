@@ -5,7 +5,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import noCard from './nocart.png'
 import Modal from '../../Modal/Modal';
 import PrivateRoutes from '../../../Routes/PrivateRoutes/PrivateRouts';
-import toast from 'react-hot-toast';
+
 
 const Products = () => {
     const [booking, setBooking] = useState(null);
@@ -87,6 +87,7 @@ const Products = () => {
                                                 <p className=' text-xl'>Location: {product.Location}</p>
                                                 <p className=' text-xl'>Original Price: <span className='text-red-600 font-semibold'>{product.Original_price}</span></p>
                                                 <p className=' text-xl'>Resale Price: <span className='text-green-600 font-semibold'>{product.Resale_price}</span></p>
+                                                <p className=' text-xl'>Phone Condition: <span className='text-blue-600 font-semibold'>{product.Condition}</span></p>
 
                                                 <p className=' text-xl'>Year of uses: {product.Years_of_use}</p>
 

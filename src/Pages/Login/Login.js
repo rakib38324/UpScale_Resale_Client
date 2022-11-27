@@ -11,7 +11,7 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
-    
+
     const [loginUserEmail, setLoginUserEmail] = useState('');
     const [token] = useToken(loginUserEmail);
 
@@ -19,12 +19,12 @@ const Login = () => {
     const [loginError, setLoginError] = useState('');
 
 
-    const {signIn,signUpWitGoogle,loading,setLoading} = useContext(AuthContext)
+    const { signIn, signUpWitGoogle, loading, setLoading } = useContext(AuthContext)
 
 
 
-    if(token){
-        navigate(from,{replace: true})
+    if (token) {
+        navigate(from, { replace: true })
     }
 
     const handleLogin = data => {
@@ -34,16 +34,19 @@ const Login = () => {
         signIn(data.email, data.password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
-                toast.success("LogIn Successfully");
-                setLoading(false)
-                setLoginUserEmail(data.email);
+                console.log(user.email);
+                if (user?.email) {
+                    setLoginUserEmail(user.email);
+                    toast.success("LogIn Successfully");
+                    setLoading(false)
+                }
+
             })
             .catch(error => {
                 console.log(error.message)
                 setLoading(false)
                 setLoginError(error.message);
-                
+
             });
     }
 
@@ -56,13 +59,16 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user)
-                setLoginUserEmail(user.email);
-                setLoading(false)
-                toast.success("Login Successfully")
+                if (user?.email) {
+                    setLoginUserEmail(user.email);
+                    setLoading(false)
+                    toast.success("Login Successfully")
+                }
             })
-        .catch(error => {
-            setLoading(false)
-            console.log(error)})
+            .catch(error => {
+                setLoading(false)
+                console.log(error)
+            })
 
     }
 
@@ -70,9 +76,9 @@ const Login = () => {
 
     return (
         <div className='h-[800px] flex justify-center items-center bg-blue-100 rounded-lg'>
-            
+
             <div className='w-96 p-7'>
-                
+
                 <h2 className='text-4xl text-secondary font-semibold text-center'>Login</h2>
                 <form onSubmit={handleSubmit(handleLogin)}>
                     <div className="form-control w-full max-w-xs">
@@ -100,8 +106,8 @@ const Login = () => {
                         <button className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white w-full mt-2 '> {loading ? <SmallLoading></SmallLoading> : 'LogIn'} </button>
 
                         <div>
-                        {loginError && <p className='text-red-600'>{loginError}</p>}
-                    </div>
+                            {loginError && <p className='text-red-600'>{loginError}</p>}
+                        </div>
                     </div>
                 </form>
                 <p className='pt-2'>New to UpScale ReSale? <Link className='text-secondary font-bold' to="/signup">Create new Account</Link></p>

@@ -202,9 +202,9 @@ const AddProduct = () => {
                                 <select
                                     {...register('condition')}
                                     className="select input-bordered input-secondary w-full max-w-xs">
-                                    <option className='text-primary' select>Excellent</option>
+                                    <option className='text-primary' select>Fresh</option>
                                     <option className='text-primary'>Good</option>
-                                    <option className='text-primary'>Fair</option>
+                                    <option className='text-primary'>Some Scratch</option>
                                 </select>
                             </div>
                             <div className="form-control w-full max-w-xs">
