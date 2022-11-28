@@ -27,12 +27,12 @@ const MyOrder = () => {
 
     return (
         <div>
-            {  myorders?.length === 0 ?
+            {myorders?.length === 0 ?
                 <>
-                <p className='lg:col-span-3 bg-gradient-to-r from-green-100 to-blue-300 rounded-2xl'>
-                    <img className='mx-auto' src={noCard} alt="" />
-                </p>
-            </>
+                    <p className='lg:col-span-3 bg-gradient-to-r from-green-100 to-blue-300 rounded-2xl'>
+                        <img className='mx-auto' src={noCard} alt="" />
+                    </p>
+                </>
                 :
                 <>
                     <div className='bg-gradient-to-r from-green-300 to-blue-400 py-10 rounded-lg mb-5'>
@@ -50,9 +50,20 @@ const MyOrder = () => {
                                             <p className='text-xl'>Phone Condition: <span className='text-green-600 font-semibold'>{myorder.phone_condition}</span></p>
                                             <p className='text-xl'>Seller Location: {myorder.Seller_Location}</p>
                                             <p className='text-xl'>Uses Time: {myorder.use_of_years}</p>
-                                            <div className="card-actions justify-center">
-                                                <Link to={`/category/${myorder._id}`}><button className="btn btn-primary bg-gradient-to-r from-primary to-secondary text-white">Make Payment</button></Link>
-                                            </div>
+                                            {
+                                                myorder.paid ?
+                                                    <>
+                                                        <div className="card-actions justify-center">
+                                                            <Link ><h1 className="btn btn-primary bg-green-600 text-white" >Payment Completed</h1></Link>
+                                                        </div>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <div className="card-actions justify-center">
+                                                            <Link to={`/payment/${myorder._id}`}><button className="btn btn-primary bg-gradient-to-r from-primary to-secondary text-white">Make Payment</button></Link>
+                                                        </div>
+                                                    </>
+                                            }
                                         </div>
                                     </div>
                                 </>

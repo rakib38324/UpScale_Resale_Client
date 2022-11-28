@@ -17,11 +17,14 @@ import AdminRoutes from "../AdminRoutes/AdminRouts";
 import SellerRouts from "../SellerRoutes/SellerRouts";
 import PrivateRoutes from "../PrivateRoutes/PrivateRouts";
 import Category from "../../Pages/Category/Category";
+import Payment from "../../Pages/MyOrder/Payment/Payment";
+import DisplayError from "../../Pages/Shared/DisplayError/DisplayError";
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <Main></Main>,
+        errorElement: <DisplayError></DisplayError>,
         children: [
             {
                 path: '/',
@@ -81,6 +84,11 @@ const router = createBrowserRouter([
                 path: '/category/:id',
                 element: <Products></Products>,
                 loader: ({params}) => fetch(`http://localhost:5000/products/${params.id}`)
+            },
+            {
+                path: '/payment/:id',
+                element: <PrivateRoutes> <Payment></Payment> </PrivateRoutes>,
+                loader: ({params}) => fetch(`http://localhost:5000/payment/${params.id}`)
             },
             
             

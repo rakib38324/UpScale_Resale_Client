@@ -33,10 +33,11 @@ const Modal = ({ title, message, successButtonName, closeModal, modalData, succe
             SellerName:modalData.SellerName,
             use_of_years:modalData.Years_of_use,
             Seller_Location:modalData.Location,
-            phone_condition: modalData.Condition             
+            phone_condition: modalData.Condition,
+            productMian_ID:modalData._id,             
 
         }
-        // console.log(productInfo)
+        console.log(productInfo)
 
 
         // Save user information to the database
