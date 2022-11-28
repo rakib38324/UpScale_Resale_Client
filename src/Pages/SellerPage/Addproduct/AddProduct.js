@@ -20,7 +20,7 @@ const AddProduct = () => {
 
 
     const seller = useLoaderData();
-    // console.log(seller,seller.name,seller._id,seller.email)
+    console.log(seller,seller.name,seller._id,seller.email)
 
 
 

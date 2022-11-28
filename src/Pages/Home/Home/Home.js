@@ -4,10 +4,14 @@ import Banner from '../Banner/Banner';
 import Brand from '../Brand/Brand';
 import { AuthContext } from '../../../Context/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
+import Advertisement from '../Advertisement/Advertisement';
+import { useLoaderData } from 'react-router-dom';
 
 const Home = () => {
 
     const {loading} = useContext(AuthContext)
+
+    
 
     if(loading){
         <Loading></Loading>
@@ -17,7 +21,8 @@ const Home = () => {
         <div >
             <Banner></Banner>
             <ChooseBrand></ChooseBrand>
-            
+
+            <Advertisement></Advertisement>
         </div>
     );
 };

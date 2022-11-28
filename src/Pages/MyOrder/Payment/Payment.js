@@ -18,18 +18,18 @@ const Payment = () => {
 
     const navigation = useNavigation();
 
-    console.log(booking)
+    // console.log(booking)
 
     if(navigation.state === 'loading'){
         return <Loading></Loading>
     }
     return (
-        <div className='my-20 bg-gradient-to-r from-green-300 to-blue-400'>
-            <h1 className='text-4xl text-center'>Payment for {booking.ProductName}</h1>
-            <h1 className='text-4xl text-center'>Price:  {booking.ProductPrice}</h1>
-            <h1 className='text-4xl text-center'>Price:  {booking.productMian_ID}</h1>
+        <div className='my-10 bg-gradient-to-r from-green-300 to-blue-400 rounded-3xl py-10'>
+            <h1 className='text-3xl text-center py-3'>Payment for <span className='' >{booking.ProductName}</span></h1>
+            <h1 className='text-3xl text-center'>Price:  {booking.ProductPrice}</h1>
+           
 
-            <div className='w-1/3 mx-auto bg-base-200 my-5 p-3'>
+            <div className='w-1/3 mx-auto bg-base-200 my-5 p-6 rounded-lg'>
                 <Elements stripe={stripePromise}>
                     <CheckoutForm 
                      booking={booking}

@@ -17,7 +17,7 @@ const ChooseBrand = () => {
     })
     console.log(brands.length)
     return (
-        <div className='bg-gradient-to-r from-green-300 to-blue-400 py-10 rounded-lg mb-5'>
+        <div className='bg-gradient-to-r from-green-300 to-blue-400 py-10 rounded-lg mb-5 mt-1'>
             <h1 className='text-4xl text-center font-bold'>Which category product do you want to select?</h1>
             <div className='grid lg:grid-cols-3 my-20 gap-3'>
             {

@@ -5,6 +5,8 @@ import { FaCheckCircle } from "react-icons/fa";
 import noCard from './nocart.png'
 import Modal from '../../Modal/Modal';
 import PrivateRoutes from '../../../Routes/PrivateRoutes/PrivateRouts';
+import AdminRoutes from '../../../Routes/AdminRoutes/AdminRouts';
+import toast from 'react-hot-toast';
 
 
 const Products = () => {
@@ -27,6 +29,21 @@ const Products = () => {
         setBooking(null);
     }
 
+    const Handlereport = id =>{
+        fetch(`http://localhost:5000/product/report/${id}`,{
+            method: 'PUT',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.modifiedCount > 0){
+                toast.success(`Report Successfully.`);
+            
+            }
+        })
+    }
 
 
     
@@ -105,6 +122,7 @@ const Products = () => {
                                                      :
                                                      <>
                                                      <label onClick={() => setBooking(product)} htmlFor="my-modal" className="btn btn-primary text-white">ADD TO CARD</label>
+                                                     <label onClick={() => Handlereport(product._id)}  className="btn btn-primary text-white">REPORT</label>
                                                      </>
 
                                                     
@@ -125,6 +143,7 @@ const Products = () => {
                 {
                     booking &&
                     <PrivateRoutes>
+                        <AdminRoutes>
                         <Modal
                         title='Are you want to Booking?'
                         message={`Are you want to Booked ${booking.name}?`}
@@ -135,6 +154,7 @@ const Products = () => {
 
 
                     ></Modal>
+                        </AdminRoutes>
                     </PrivateRoutes>
 
 

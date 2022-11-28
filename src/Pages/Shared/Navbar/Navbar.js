@@ -44,7 +44,7 @@ const Navbar = () => {
     const menuItems = <React.Fragment>
         <li className='font-bold' ><Link to="/">Home</Link></li>
 
-        <li className='font-bold' ><Link to="/allusers">All Users</Link></li>
+       
         <li className='font-bold' ><Link to="/category">Category</Link></li>
 
         
@@ -58,7 +58,7 @@ const Navbar = () => {
         }
         {
             isAdmin && <>
-
+                 <li className='font-bold' ><Link to="/allusers">All Users</Link></li>
                 <li className='font-bold' ><Link to="/allseller">All Seller</Link></li>
                 <li className='font-bold' ><Link to="/allbuyer">All Buyer</Link></li>
                 <li className='font-bold' ><Link to="/reportitems">Reported Items</Link></li>
@@ -68,7 +68,7 @@ const Navbar = () => {
             isSeller && <>
                 <li className='font-bold' ><Link to={`/addproducts/${user?.email}`}>Add Products</Link></li>
                 <li className='font-bold' ><Link to={`/myproduct/${user?.email}`}>My Products</Link></li>
-                <li className='font-bold' ><Link to="/mybuyers">My Buyer</Link></li>
+                
             </>
         }
         <li className='font-bold' ><Link to="/blogs">Blogs</Link></li>

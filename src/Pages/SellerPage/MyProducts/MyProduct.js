@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { AuthContext } from '../../../Context/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
 import toast from 'react-hot-toast';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import nofound from './nocart.png'
 
 const MyProduct = () => {
@@ -40,6 +40,7 @@ const MyProduct = () => {
     }
 
 
+
     const HandleDelete = id => {
         fetch(`http://localhost:5000/product/status/${id}`, {
             method: 'DELETE',
@@ -55,6 +56,82 @@ const MyProduct = () => {
                 }
             })
     }
+
+
+    const time = new Date().toLocaleTimeString();
+    const date = new Date().toLocaleDateString();
+
+    const handleMakeAdverticement = data => {
+
+        const productinfo = {
+            ProductName: data.ProductName,
+            SellerName: data.SellerName,
+            SellerEmail: data.Selleremail,
+            Original_price: data.Original_price,
+            Resale_price: data.Resale_price,
+            Buyer_mobile_number: data.Buyer_mobile_number,
+            image: data.image,
+            Condition: data.Condition,
+            Location: data.Location,
+            Details: data.Details,
+            AddingDate: date,
+            Addingtime: time,
+            Years_of_use: data.Years_of_use,
+            status: 'Available',
+            brand_id: data.brand_id,
+        }
+
+
+        fetch(`http://localhost:5000/product/status/${data._id}`, {
+            method: 'PUT',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+
+
+                    // console.log(data)
+                    // console.log(data.Buyer_mobile_number)
+                    
+
+                    console.log(productinfo)
+
+
+                    // Save user information to the database
+                    fetch('http://localhost:5000/adverticeProduct', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                        },
+                        body: JSON.stringify(productinfo)
+                    })
+                        .then(res => res.json())
+                        .then(result => {
+
+                            toast.success(`Make Advertise Successfully.`);
+
+
+                            refetch();
+
+                        })
+
+
+
+                }
+            })
+
+
+
+
+
+
+
+
+    }
+
 
     if (isLoading) {
         return <Loading></Loading>
@@ -97,13 +174,30 @@ const MyProduct = () => {
                                                     <div className="card-actions flex">
                                                         {
                                                             product.status === 'Sold' && <>
+
                                                                 <button onClick={() => HandleMakeAvailable(product._id)} className="btn btn-sm bg-gradient-to-r from-primary to-secondary text-white">Make Available</button>
                                                                 <button onClick={() => HandleDelete(product._id)} className="btn btn-sm bg-gradient-to-r from-primary to-secondary text-white">Delete</button>
                                                             </>
                                                         }
                                                         {
                                                             product.status === 'Available' &&
-                                                            <><button className="btn btn-sm bg-gradient-to-r from-primary to-secondary text-white">Make Advertised</button></>
+                                                            <>
+                                                                {
+                                                                    product.advertise === true ?
+                                                                        <>
+                                                                            <Link >
+                                                                                <button className="btn btn-sm bg-green-400 text-white text-black hover:bg-green-500">Already Advertised</button>
+                                                                            </Link>
+                                                                        </>
+                                                                        :
+                                                                        <>
+                                                                            <Link >
+                                                                                <button onClick={() => handleMakeAdverticement(product)} className="btn btn-sm bg-gradient-to-r from-primary to-secondary text-white">Make Advertised</button>
+                                                                                <button onClick={() => HandleDelete(product._id)} className="btn btn-sm bg-gradient-to-r from-primary to-secondary text-white ml-2">Delete</button>
+                                                                            </Link>
+                                                                        </>
+                                                                }
+                                                            </>
                                                         }
 
 

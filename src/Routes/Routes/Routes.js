@@ -19,6 +19,7 @@ import PrivateRoutes from "../PrivateRoutes/PrivateRouts";
 import Category from "../../Pages/Category/Category";
 import Payment from "../../Pages/MyOrder/Payment/Payment";
 import DisplayError from "../../Pages/Shared/DisplayError/DisplayError";
+import Advertisement from "../../Pages/Home/Advertisement/Advertisement";
 
 const router = createBrowserRouter([
     {
@@ -89,6 +90,11 @@ const router = createBrowserRouter([
                 path: '/payment/:id',
                 element: <PrivateRoutes> <Payment></Payment> </PrivateRoutes>,
                 loader: ({params}) => fetch(`http://localhost:5000/payment/${params.id}`)
+            },
+            {
+                path: '/',
+                element: <Advertisement></Advertisement>,
+                loader: fetch('http://localhost:5000/advertise?limit=1')
             },
             
             
