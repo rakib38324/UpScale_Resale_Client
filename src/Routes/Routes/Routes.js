@@ -20,6 +20,7 @@ import Category from "../../Pages/Category/Category";
 import Payment from "../../Pages/MyOrder/Payment/Payment";
 import DisplayError from "../../Pages/Shared/DisplayError/DisplayError";
 import Advertisement from "../../Pages/Home/Advertisement/Advertisement";
+import Blogs from "../../Pages/Blogs/Blogs";
 
 const router = createBrowserRouter([
     {
@@ -95,6 +96,12 @@ const router = createBrowserRouter([
                 path: '/',
                 element: <Advertisement></Advertisement>,
                 loader: fetch('http://localhost:5000/advertise?limit=1')
+            },
+            
+            {
+                path: '/blogs',
+                element: <Blogs></Blogs>
+                
             },
             
             
