@@ -27,6 +27,8 @@ const Login = () => {
         navigate(from, { replace: true })
     }
 
+    // console.log(token)
+
     const handleLogin = data => {
         // console.log(data);
         setLoading(true)
@@ -59,10 +61,45 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user)
-                if (user?.email) {
-                    setLoginUserEmail(user.email);
-                    setLoading(false)
-                    toast.success("Login Successfully")
+                if (user.email) {
+                    fetch(`http://localhost:5000/finduser?email=${user.email}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.accessToken) {
+                                toast.success("Login Successfully")
+                                return setLoginUserEmail(user.email);
+                            }
+
+                            else {
+
+                                const profile = {
+                                    name: user.displayName,
+                                    email: user.email,
+                                    profileType: "User",
+                                    image: user.photoURL,
+                                    verify: 'Unverified',
+                                }
+
+                                // console.log(profile)
+                                // Save user information to the database
+                                fetch('http://localhost:5000/users', {
+                                    method: 'POST',
+                                    headers: {
+                                        'content-type': 'application/json',
+                                    },
+                                    body: JSON.stringify(profile)
+                                })
+                                    .then(res => res.json())
+                                    .then(result => {
+                                        setLoginUserEmail(user.email);
+                                        setLoading(false)
+                                        toast.success("Login Successfully")
+                                    })
+
+
+
+                            }
+                        });
                 }
             })
             .catch(error => {
@@ -75,7 +112,7 @@ const Login = () => {
 
 
     return (
-        <div className='h-[800px] flex justify-center items-center bg-blue-100 rounded-lg'>
+        <div className='h-[800px] flex justify-center items-center  bg-gradient-to-r from-green-300 to-cyan-400 rounded-lg my-1'>
 
             <div className='w-96 p-7'>
 

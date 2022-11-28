@@ -36,7 +36,7 @@ const MyOrder = () => {
                 :
                 <>
                     <div className='bg-gradient-to-r from-green-300 to-blue-400 py-10 rounded-lg mb-5'>
-                        <h1 className='text-4xl text-center font-bold'>Which Category Product do you want to Select?</h1>
+                        <h1 className='text-4xl text-center font-bold'>Card Products</h1>
                         <div className='grid lg:grid-cols-3 my-20 gap-3'>
                             {
                                 myorders?.length && myorders?.map(myorder => <>

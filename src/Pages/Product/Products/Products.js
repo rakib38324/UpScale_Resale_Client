@@ -98,13 +98,13 @@ const Products = () => {
 
                                                     
                                                     {
-                                                     product.Booking === 'Booked' ?
+                                                     product.status === 'Sold' ?
                                                      <>
-                                                     <label className="btn bg-red-200 text-black hover:bg-red-400">Already Booked</label>
+                                                     <label className="btn bg-red-200 text-black hover:bg-red-400">Sold</label>
                                                      </>
                                                      :
                                                      <>
-                                                     <label onClick={() => setBooking(product)} htmlFor="my-modal" className="btn btn-primary">Book Now</label>
+                                                     <label onClick={() => setBooking(product)} htmlFor="my-modal" className="btn btn-primary text-white">ADD TO CARD</label>
                                                      </>
 
                                                     

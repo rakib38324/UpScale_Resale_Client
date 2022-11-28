@@ -12,11 +12,14 @@ const Navbar = () => {
 
     const { user, logOut, loading, setLoading } = useContext(AuthContext)
 
+    // console.log(user.email)
 
     const [isAdmin] = useAdmin(user?.email)
     const [isSeller] = UseSeller(user?.email)
     const [isUser] = UserHook(user?.email)
     const navigate = useNavigate();
+
+    console.log(isAdmin,isSeller,isUser)
 
 
     const handleLogOut = () => {

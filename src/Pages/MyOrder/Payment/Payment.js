@@ -9,7 +9,7 @@ import CheckoutForm from './CheckoutForm';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
 
-console.log(process.env.REACT_APP_STRIPE_PK)
+// console.log(process.env.REACT_APP_STRIPE_PK)
 
 const Payment = () => {
     console.log('Promise: ',stripePromise)
@@ -24,7 +24,7 @@ const Payment = () => {
         return <Loading></Loading>
     }
     return (
-        <div className='my-20'>
+        <div className='my-20 bg-gradient-to-r from-green-300 to-blue-400'>
             <h1 className='text-4xl text-center'>Payment for {booking.ProductName}</h1>
             <h1 className='text-4xl text-center'>Price:  {booking.ProductPrice}</h1>
             <h1 className='text-4xl text-center'>Price:  {booking.productMian_ID}</h1>

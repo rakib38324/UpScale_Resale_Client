@@ -51,25 +51,25 @@ const Modal = ({ title, message, successButtonName, closeModal, modalData, succe
             .then(res => res.json())
             .then(result => {
 
-                // toast.success("Product Add Successfully")
+                toast.success(`Booked Successfully.`);
+                setLoading(false)
+                navigate('/myorder');
 
 
 
-                fetch(`http://localhost:5000/product/booking/${modalData._id}`, {
-                    method: 'PUT',
-                    headers: {
-                        authorization: `bearer ${localStorage.getItem('accessToken')}`
-                    }
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.modifiedCount > 0) {
-                            toast.success(`Booked Successfully.`);
-                            setLoading(false)
-                            navigate('/myorder');
+                // fetch(`http://localhost:5000/product/booking/${modalData._id}`, {
+                //     method: 'PUT',
+                //     headers: {
+                //         authorization: `bearer ${localStorage.getItem('accessToken')}`
+                //     }
+                // })
+                //     .then(res => res.json())
+                //     .then(data => {
+                //         if (data.modifiedCount > 0) {
+                            
 
-                        }
-                    })
+                //         }
+                //     })
 
             })
 

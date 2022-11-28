@@ -17,6 +17,7 @@ const Home = () => {
         <div >
             <Banner></Banner>
             <ChooseBrand></ChooseBrand>
+            
         </div>
     );
 };
