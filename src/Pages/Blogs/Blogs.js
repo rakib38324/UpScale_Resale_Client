@@ -8,7 +8,7 @@ import unit from './blogs/unit.jpg'
 const Blogs = () => {
    
     return (
-        <div className='grid lg:grid-cols-3 sm:grid-cols-1 gap-5 p-4 my-10'>
+        <div className='grid  bg-gradient-to-r from-green-100 to-blue-300 lg:grid-cols-3 sm:grid-cols-1 gap-3 p-4 mb-10 mt-1 rounded-3xl'>
 
             <div className="card bg-base-100 shadow-xl">
                 <figure><img src={pic1} alt="Shoes" /></figure>
