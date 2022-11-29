@@ -13,7 +13,7 @@ const MyProduct = () => {
     const { data: products = [], refetch, isLoading } = useQuery({
         queryKey: ['Products'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/myproducts/${seller.email}`, {
+            const res = await fetch(`https://up-scale-re-sale-server.vercel.app/myproducts/${seller.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -24,7 +24,7 @@ const MyProduct = () => {
     })
 
     const HandleMakeAvailable = id => {
-        fetch(`http://localhost:5000/product/status/${id}`, {
+        fetch(`https://up-scale-re-sale-server.vercel.app/product/status/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -42,7 +42,7 @@ const MyProduct = () => {
 
 
     const HandleDelete = id => {
-        fetch(`http://localhost:5000/product/status/${id}`, {
+        fetch(`https://up-scale-re-sale-server.vercel.app/product/status/${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -82,7 +82,7 @@ const MyProduct = () => {
         }
 
 
-        fetch(`http://localhost:5000/product/status/${data._id}`, {
+        fetch(`https://up-scale-re-sale-server.vercel.app/product/status/${data._id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -101,7 +101,7 @@ const MyProduct = () => {
 
 
                     // Save user information to the database
-                    fetch('http://localhost:5000/adverticeProduct', {
+                    fetch('https://up-scale-re-sale-server.vercel.app/adverticeProduct', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

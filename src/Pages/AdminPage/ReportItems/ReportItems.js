@@ -12,7 +12,7 @@ const ReportItems = () => {
         ({
             queryKey: ['report'],
             queryFn: async () => {
-                const res = await fetch('http://localhost:5000/reportItems');
+                const res = await fetch('https://up-scale-re-sale-server.vercel.app/reportItems');
                 const data = await res.json();
                 return data;
             }
@@ -20,7 +20,7 @@ const ReportItems = () => {
 
 
     const HandleDeleteUser = id => {
-        fetch(`http://localhost:5000/product/${id}`, {
+        fetch(`https://up-scale-re-sale-server.vercel.app/product/${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

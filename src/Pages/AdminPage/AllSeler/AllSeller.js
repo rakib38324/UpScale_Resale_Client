@@ -11,7 +11,7 @@ const AllSeller = () => {
     const { data: users = [], refetch, isLoading } = useQuery({
         queryKey: ['allseller'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/allseller',{
+            const res = await fetch('https://up-scale-re-sale-server.vercel.app/allseller',{
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -23,7 +23,7 @@ const AllSeller = () => {
 
 
     const HandleMakeAdmin = id => {
-        fetch(`http://localhost:5000/users/admin/${id}`, {
+        fetch(`https://up-scale-re-sale-server.vercel.app/users/admin/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -39,7 +39,7 @@ const AllSeller = () => {
     }
 
     const HandleMakeVerify = id => {
-        fetch(`http://localhost:5000/users/verify/${id}`, {
+        fetch(`https://up-scale-re-sale-server.vercel.app/users/verify/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -55,7 +55,7 @@ const AllSeller = () => {
     }
 
     const HandleDeleteUser = id => {
-        fetch(`http://localhost:5000/users/${id}`, {
+        fetch(`https://up-scale-re-sale-server.vercel.app/users/${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -101,7 +101,7 @@ const AllSeller = () => {
                                             <img src={user.image} alt="Avatar Tailwind CSS Component" />
                                         </div>
                                         {
-                                            user.verify ?
+                                            user.verify === 'verified'?
                                                 <>
                                                     <p className='absolute right-0 bottom-0 text-blue-600'><FaCheckCircle></FaCheckCircle></p>
                                                 </>

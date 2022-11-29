@@ -80,7 +80,7 @@ const SignUp = () => {
 
 
                                 // Save user information to the database
-                                fetch('http://localhost:5000/users', {
+                                fetch('https://up-scale-re-sale-server.vercel.app/users', {
                                     method: 'POST',
                                     headers: {
                                         'content-type': 'application/json',
@@ -123,7 +123,7 @@ const SignUp = () => {
                 //else at first create user then send database and then cal for token
 
                 if (user.email) {
-                    fetch(`http://localhost:5000/finduser?email=${user.email}`)
+                    fetch(`https://up-scale-re-sale-server.vercel.app/finduser?email=${user.email}`)
                         .then(res => res.json())
                         .then(data => {
                             if (data.accessToken) {
@@ -143,7 +143,7 @@ const SignUp = () => {
 
                                 // console.log(profile)
                                 // Save user information to the database
-                                fetch('http://localhost:5000/users', {
+                                fetch('https://up-scale-re-sale-server.vercel.app/users', {
                                     method: 'POST',
                                     headers: {
                                         'content-type': 'application/json',

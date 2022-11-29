@@ -41,7 +41,7 @@ const Modal = ({ title, message, successButtonName, closeModal, modalData, succe
 
 
         // Save user information to the database
-        fetch('http://localhost:5000/booking/product', {
+        fetch('https://up-scale-re-sale-server.vercel.app/booking/product', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -57,7 +57,7 @@ const Modal = ({ title, message, successButtonName, closeModal, modalData, succe
 
 
 
-                // fetch(`http://localhost:5000/product/booking/${modalData._id}`, {
+                // fetch(`https://up-scale-re-sale-server.vercel.app/product/booking/${modalData._id}`, {
                 //     method: 'PUT',
                 //     headers: {
                 //         authorization: `bearer ${localStorage.getItem('accessToken')}`

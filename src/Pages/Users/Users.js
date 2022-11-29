@@ -10,7 +10,7 @@ const Users = () => {
     const {data: users = [], refetch,isLoading} = useQuery({
         queryKey: ['users'],
         queryFn: async () =>{
-            const res = await fetch('http://localhost:5000/users',{
+            const res = await fetch('https://up-scale-re-sale-server.vercel.app/users',{
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -25,7 +25,7 @@ const Users = () => {
 
 
     const HandleMakeVerify = id =>{
-        fetch(`http://localhost:5000/users/verify/${id}`,{
+        fetch(`https://up-scale-re-sale-server.vercel.app/users/verify/${id}`,{
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -41,7 +41,7 @@ const Users = () => {
     }
 
     const HandleDeleteUser = id =>{
-        fetch(`http://localhost:5000/users/${id}`,{
+        fetch(`https://up-scale-re-sale-server.vercel.app/users/${id}`,{
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -85,7 +85,7 @@ const Users = () => {
                                         <img src={user.image} alt="Avatar Tailwind CSS Component" />
                                     </div>
                                     {
-                                        user.verify === 'verify'?
+                                        user.verify === 'verified'?
                                         <>
                                         <p className='absolute right-0 bottom-0 text-blue-600'><FaCheckCircle></FaCheckCircle></p>
                                         </>

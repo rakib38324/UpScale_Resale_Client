@@ -55,7 +55,7 @@ const router = createBrowserRouter([
             {
                 path: '/addproducts/:email',
                 element: <PrivateRoutes><SellerRouts><AddProduct></AddProduct></SellerRouts></PrivateRoutes>,
-                loader: ({params}) => fetch(`http://localhost:5000/brand/${params.email}`)
+                loader: ({params}) => fetch(`https://up-scale-re-sale-server.vercel.app/brand/${params.email}`)
             },
             {
                 path: '/allseller',
@@ -80,22 +80,22 @@ const router = createBrowserRouter([
             {
                 path: '/myproduct/:email',
                 element: <PrivateRoutes><SellerRouts><MyProduct></MyProduct></SellerRouts></PrivateRoutes>,
-                loader: ({params}) => fetch(`http://localhost:5000/brand/${params.email}`)
+                loader: ({params}) => fetch(`https://up-scale-re-sale-server.vercel.app/brand/${params.email}`)
             },
             {
                 path: '/category/:id',
                 element: <Products></Products>,
-                loader: ({params}) => fetch(`http://localhost:5000/products/${params.id}`)
+                loader: ({params}) => fetch(`https://up-scale-re-sale-server.vercel.app/products/${params.id}`)
             },
             {
                 path: '/payment/:id',
                 element: <PrivateRoutes> <Payment></Payment> </PrivateRoutes>,
-                loader: ({params}) => fetch(`http://localhost:5000/payment/${params.id}`)
+                loader: ({params}) => fetch(`https://up-scale-re-sale-server.vercel.app/payment/${params.id}`)
             },
             {
                 path: '/',
                 element: <Advertisement></Advertisement>,
-                loader: fetch('http://localhost:5000/advertise?limit=1')
+                loader: fetch('https://up-scale-re-sale-server.vercel.app/advertise?limit=1')
             },
             
             {

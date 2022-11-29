@@ -18,7 +18,7 @@ const Products = () => {
     const { data: brands = [] } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/brand');
+            const res = await fetch('https://up-scale-re-sale-server.vercel.app/brand');
             const data = await res.json();
             return data;
         }
@@ -30,7 +30,7 @@ const Products = () => {
     }
 
     const Handlereport = id => {
-        fetch(`http://localhost:5000/product/report/${id}`, {
+        fetch(`https://up-scale-re-sale-server.vercel.app/product/report/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

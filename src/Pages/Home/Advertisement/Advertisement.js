@@ -14,7 +14,7 @@ const Advertisement = () => {
     console.log(products)
 
     useEffect(() => {
-        fetch('http://localhost:5000/advertise?limit=1')
+        fetch('https://up-scale-re-sale-server.vercel.app/advertise?limit=1')
             .then(res => res.json())
             .then(data => {
 

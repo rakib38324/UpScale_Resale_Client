@@ -7,7 +7,7 @@ const UserHook = email =>{
     useEffect(()=>{
         
         if(email){
-            fetch(`http://localhost:5000/users/UserHook/${email}`)
+            fetch(`https://up-scale-re-sale-server.vercel.app/users/UserHook/${email}`)
             .then(res => res.json())
             .then(data => {
             //    console.log(data)
