@@ -6,67 +6,71 @@ import Loading from '../../Shared/Loading/Loading';
 
 
 const AllSeller = () => {
-    
 
-    const {data: users = [], refetch,isLoading} = useQuery({
+
+    const { data: users = [], refetch, isLoading } = useQuery({
         queryKey: ['allseller'],
-        queryFn: async () =>{
-            const res = await fetch('http://localhost:5000/allseller');
+        queryFn: async () => {
+            const res = await fetch('http://localhost:5000/allseller',{
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
             const data = await res.json();
             return data;
         }
     })
 
 
-    const HandleMakeAdmin = id =>{
-        fetch(`http://localhost:5000/users/admin/${id}`,{
+    const HandleMakeAdmin = id => {
+        fetch(`http://localhost:5000/users/admin/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
         })
-        .then(res => res.json())
-        .then(data => {
-            if(data.modifiedCount > 0){
-                toast.success(`Make Admin Successfully.`);
-                refetch();
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success(`Make Admin Successfully.`);
+                    refetch();
+                }
+            })
     }
 
-    const HandleMakeVerify = id =>{
-        fetch(`http://localhost:5000/users/verify/${id}`,{
+    const HandleMakeVerify = id => {
+        fetch(`http://localhost:5000/users/verify/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
         })
-        .then(res => res.json())
-        .then(data => {
-            if(data.modifiedCount > 0){
-                toast.success(`Make Verify Successfully.`);
-                refetch();
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success(`Make Verify Successfully.`);
+                    refetch();
+                }
+            })
     }
 
-    const HandleDeleteUser = id =>{
-        fetch(`http://localhost:5000/users/${id}`,{
+    const HandleDeleteUser = id => {
+        fetch(`http://localhost:5000/users/${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
         })
-        .then(res => res.json())
-        .then(data => {
-            if(data.deletedCount > 0){
-                toast.success(`Delete Successfully.`);
-                refetch();
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    toast.success(`Delete Successfully.`);
+                    refetch();
+                }
+            })
     }
 
-    if(isLoading){
+    if (isLoading) {
         return <Loading></Loading>
     }
 
@@ -89,42 +93,42 @@ const AllSeller = () => {
                     <tbody>
                         {
                             users?.length && users?.map((user, i) => <tr key={user._id}>
-                                
+
                                 <th>{i + 1}</th>
                                 <th className='relative'>
                                     <div className="avatar">
-                                    <div className="mask mask-squircle w-12 h-12">
-                                        <img src={user.image} alt="Avatar Tailwind CSS Component" />
-                                    </div>
-                                    {
-                                        user.verify ?
-                                        <>
-                                        <p className='absolute right-0 bottom-0 text-blue-600'><FaCheckCircle></FaCheckCircle></p>
-                                        </>
-                                        :
-                                        <>
-                                        </>
-                                    }
-                                </div></th>
+                                        <div className="mask mask-squircle w-12 h-12">
+                                            <img src={user.image} alt="Avatar Tailwind CSS Component" />
+                                        </div>
+                                        {
+                                            user.verify ?
+                                                <>
+                                                    <p className='absolute right-0 bottom-0 text-blue-600'><FaCheckCircle></FaCheckCircle></p>
+                                                </>
+                                                :
+                                                <>
+                                                </>
+                                        }
+                                    </div></th>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>{
-                                    user?.role !== 'admin' && <button onClick={()=>HandleMakeAdmin(user._id)} className='btn btn-xs btn-primary'>Make Admin</button>
+                                    user?.role !== 'admin' && <button onClick={() => HandleMakeAdmin(user._id)} className='btn btn-xs btn-primary'>Make Admin</button>
                                 }
-                                {
-                                    user?.role === 'admin' && <button  className='btn btn-xs bg-green-400 text-black'>Admin</button>
-                                }
-                                </td>
-                                
-                                <td>{
-                                    user?.verify !== 'verified' && <button onClick={()=>HandleMakeVerify(user._id)} className='btn btn-xs btn-primary'>Verify Seller</button>
+                                    {
+                                        user?.role === 'admin' && <button className='btn btn-xs bg-green-400 text-black'>Admin</button>
                                     }
-
-{
-                                    user?.verify === 'verified' && <button  className='btn btn-xs bg-green-400 text-black'>Verified</button>
-                                }
                                 </td>
-                                <td><button onClick={()=>HandleDeleteUser(user._id)} className='btn btn-xs  bg-blue-500 text-black hover:bg-green-400'>Delete</button></td>
+
+                                <td>{
+                                    user?.verify !== 'verified' && <button onClick={() => HandleMakeVerify(user._id)} className='btn btn-xs btn-primary'>Verify Seller</button>
+                                }
+
+                                    {
+                                        user?.verify === 'verified' && <button className='btn btn-xs bg-green-400 text-black'>Verified</button>
+                                    }
+                                </td>
+                                <td><button onClick={() => HandleDeleteUser(user._id)} className='btn btn-xs  bg-blue-500 text-black hover:bg-green-400'>Delete</button></td>
                             </tr>)
                         }
                     </tbody>
