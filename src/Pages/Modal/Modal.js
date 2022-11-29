@@ -13,7 +13,7 @@ const Modal = ({ title, message, successButtonName, closeModal, modalData, succe
 
 
     const { user, loading, setLoading } = useContext(AuthContext)
-    // console.log(user)
+    console.log(user)
 
 
     const handleBookProduct = (data) => {

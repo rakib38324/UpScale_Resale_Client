@@ -29,24 +29,24 @@ const Products = () => {
         setBooking(null);
     }
 
-    const Handlereport = id =>{
-        fetch(`http://localhost:5000/product/report/${id}`,{
+    const Handlereport = id => {
+        fetch(`http://localhost:5000/product/report/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
         })
-        .then(res => res.json())
-        .then(data => {
-            if(data.modifiedCount > 0){
-                toast.success(`Report Successfully.`);
-            
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success(`Report Successfully.`);
+
+                }
+            })
     }
 
 
-    
+
 
 
 
@@ -56,7 +56,7 @@ const Products = () => {
         <div className='grid grid-cols-1  lg:grid-cols-12 mt-1 mb-3 bg-gradient-to-r from-purple-300 to-blue-400 rounded-3xl'>
 
 
-            
+
 
             <div className='lg:col-span-2 border'>
                 <h1 className='text-2xl text-center font-semibold py-6'>Brand Name</h1>
@@ -113,20 +113,20 @@ const Products = () => {
                                                 <p className=' text-xl'>Posting time: {product.Addingtime}   {product.AddingDate} </p>
                                                 <div className="card-actions justify-end">
 
-                                                    
-                                                    {
-                                                     product.status === 'Sold' ?
-                                                     <>
-                                                     <label className="btn bg-red-200 text-black hover:bg-red-400">Sold</label>
-                                                     </>
-                                                     :
-                                                     <>
-                                                     <label onClick={() => setBooking(product)} htmlFor="my-modal" className="btn btn-primary text-white">ADD TO CARD</label>
-                                                     <label onClick={() => Handlereport(product._id)}  className="btn btn-primary text-white">REPORT</label>
-                                                     </>
 
-                                                    
-                                                    
+                                                    {
+                                                        product.status === 'Sold' ?
+                                                            <>
+                                                                <label className="btn bg-red-200 text-black hover:bg-red-400">Sold</label>
+                                                            </>
+                                                            :
+                                                            <>
+                                                                <label onClick={() => setBooking(product)} htmlFor="my-modal" className="btn btn-primary text-white">ADD TO CARD</label>
+                                                                <label onClick={() => Handlereport(product._id)} className="btn btn-primary text-white">REPORT</label>
+                                                            </>
+
+
+
                                                     }
                                                 </div>
                                             </div>
@@ -142,20 +142,22 @@ const Products = () => {
 
                 {
                     booking &&
-                    <PrivateRoutes>
-                        <AdminRoutes>
-                        <Modal
-                        title='Are you want to Booking?'
-                        message={`Are you want to Booked ${booking.name}?`}
-                        key={booking._id}
-                        closeModal={closeModal}
-                        modalData={booking}
-                        successButtonName="Booked"
+                  
+                        
+                           <PrivateRoutes>
+                             <Modal
+                                title='Are you want to Booking?'
+                                message={`Are you want to Booked ${booking.name}?`}
+                                key={booking._id}
+                                closeModal={closeModal}
+                                modalData={booking}
+                                successButtonName="Booked"
 
 
-                    ></Modal>
-                        </AdminRoutes>
-                    </PrivateRoutes>
+                            ></Modal>
+                           </PrivateRoutes>
+                        
+                   
 
 
 

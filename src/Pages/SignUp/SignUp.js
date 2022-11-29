@@ -37,7 +37,7 @@ const SignUp = () => {
             .then(result => {
                 const user = result.user;
                 // console.log(user);
-                toast.success(`${<SmallLoading></SmallLoading> }`)
+                toast.success(`Processing...`)
 
                 const userInfo = {
                     displayName: data.name
@@ -56,7 +56,7 @@ const SignUp = () => {
                         const formData = new FormData();
                         formData.append('image', image);
                         const imgKey = process.env.REACT_APP_IMG_KEY;
-                        // console.log(image, imgKey)
+                        console.log(imgKey)
                         const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imgKey}`;
 
                         fetch(url, {

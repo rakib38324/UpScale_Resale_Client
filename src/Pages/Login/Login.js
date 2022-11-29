@@ -24,6 +24,7 @@ const Login = () => {
 
 
     if (token) {
+       
         navigate(from, { replace: true })
     }
 
@@ -39,7 +40,7 @@ const Login = () => {
                 console.log(user.email);
                 if (user?.email) {
                     setLoginUserEmail(user.email);
-                    toast.success("LogIn Successfully");
+                    toast.success("Login Successfully")
                     setLoading(false)
                 }
 
@@ -66,7 +67,7 @@ const Login = () => {
                         .then(res => res.json())
                         .then(data => {
                             if (data.accessToken) {
-                                toast.success("Login Successfully")
+                              
                                 return setLoginUserEmail(user.email);
                             }
 
@@ -94,6 +95,7 @@ const Login = () => {
                                         setLoginUserEmail(user.email);
                                         setLoading(false)
                                         toast.success("Login Successfully")
+                                       
                                     })
 
 

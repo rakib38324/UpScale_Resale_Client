@@ -10,6 +10,9 @@ const Advertisement = () => {
     const [products, setProducts] = useState('');
     const [booking, setBooking] = useState(null);
 
+    console.log(booking)
+    console.log(products)
+
     useEffect(() => {
         fetch('http://localhost:5000/advertise?limit=1')
             .then(res => res.json())
@@ -17,7 +20,7 @@ const Advertisement = () => {
 
                 setProducts(data)
             })
-    })
+    },[])
 
     const handledata = data => {
 
@@ -89,19 +92,21 @@ const Advertisement = () => {
 
                     {
                         booking &&
-                        <PrivateRoutes>
-                            <Modal
+                        
+                           <PrivateRoutes>
+                             <Modal
                                 title='Are you want to Booking?'
-                                message={`Are you want to Booked ${booking.name}?`}
-                                key={booking._id}
+                                message={`Are you want to Booked ${booking?.name}?`}
+                                key={booking?._id}
                                 closeModal={closeModal}
                                 modalData={booking}
                                 successButtonName="Booked"
 
 
                             ></Modal>
-                        </PrivateRoutes>
-
+                           </PrivateRoutes>
+                        
+                        
 
 
                     }

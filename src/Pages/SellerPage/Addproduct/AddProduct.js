@@ -4,9 +4,9 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
-import ChooseBrand from '../../Home/Banner/ChooseBrand';
 import Loading from '../../Shared/Loading/Loading';
 import SmallLoading from '../../Shared/Loading/SmallLoading';
+
 
 
 const AddProduct = () => {
@@ -15,12 +15,12 @@ const AddProduct = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const {loading,setLoading} = useContext(AuthContext)
+    const { loading, setLoading } = useContext(AuthContext)
 
 
 
     const seller = useLoaderData();
-    console.log(seller,seller.name,seller._id,seller.email)
+    // console.log(seller,seller.name,seller._id,seller.email)
 
 
 
@@ -34,32 +34,29 @@ const AddProduct = () => {
     })
 
     // console.log(user)
+    const imgKey = process.env.REACT_APP_IMG_KEY;
 
     const handleAddProduct = (data) => {
         setSignUPError('');
-        setLoading(true)
+        
 
-        //Upload image and save database imgibb
         const image = data.image[0];
-
         const formData = new FormData();
         formData.append('image', image);
-
-        const imgKey = process.env.REACT_APP_IMG_KEY;
-        // console.log(image, imgKey)
-        const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imgKey}`;
-
+        const url = `https://api.imgbb.com/1/upload?key=${imgKey}`
         fetch(url, {
             method: 'POST',
             body: formData
         })
             .then(res => res.json())
             .then(imgData => {
+                console.log(imgData)
+                // const image = data.image[0];
+                console.log(imgData.data.url)
 
-
-                // console.log(imgData.data.url);
                 const time = new Date().toLocaleTimeString();
                 const date = new Date().toLocaleDateString();
+
                 const productInfo = {
                     ProductName: data.name,
                     SellerName: data.sellername,
@@ -95,24 +92,29 @@ const AddProduct = () => {
                     .then(res => res.json())
                     .then(result => {
 
+                        console.log(result)
                         toast.success("Product Add Successfully")
                         setLoading(false)
-                        navigate('/');
+                        navigate('/')
                     })
 
+
             })
+
+
+      
 
     }
 
 
-    if(loading){
-        <SmallLoading></SmallLoading>
+    if (loading) {
+        <Loading></Loading>
     }
 
 
     return (
         <div className='bg-gradient-to-r from-purple-300 to-blue-400 mt-1 mb-3 rounded-2xl'>
-           
+
 
             <div>
                 <h2 className='text-4xl  font-semibold text-center mb-5 text-black py-6'>Add Products</h2>
@@ -134,9 +136,9 @@ const AddProduct = () => {
                                 <label className="label"> <span className="label-text text-black font-bold ">Your Status</span></label>
                                 <input type="text" {...register("verify", {
                                     required: "Verify is Required"
-                                })} className="input input-secondary input-bordered w-full max-w-xs" 
-                                
-                                defaultValue={seller.verify} readOnly />
+                                })} className="input input-secondary input-bordered w-full max-w-xs"
+
+                                    defaultValue={seller.verify} readOnly />
                                 {errors.verify && <p className='text-red-500'>{errors.password.message}</p>}
 
                             </div>
@@ -259,9 +261,8 @@ const AddProduct = () => {
 
                         <div className='text-center my-10'>
 
-                            <button  className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white lg:w-1/4 '>  { loading ? <SmallLoading></SmallLoading> : 'Add Product' } </button>
-                            
-
+                            {/* <button  >  { loading ? <SmallLoading></SmallLoading> :<button> */}
+                            <button className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white lg:w-1/4 ' type='submit'>{ loading ? <SmallLoading></SmallLoading> : 'Add product'}</button>
                         </div>
                         <div>
                             {signUpError && <p className='text-red-600'>{signUpError}</p>}

@@ -187,6 +187,7 @@ const MyProduct = () => {
                                                                         <>
                                                                             <Link >
                                                                                 <button className="btn btn-sm bg-green-400 text-white text-black hover:bg-green-500">Already Advertised</button>
+                                                                                <button onClick={() => HandleDelete(product._id)} className="btn btn-sm bg-gradient-to-r from-primary to-secondary text-white ml-2">Delete</button>
                                                                             </Link>
                                                                         </>
                                                                         :

@@ -19,7 +19,8 @@ const Navbar = () => {
     const [isUser] = UserHook(user?.email)
     const navigate = useNavigate();
 
-    console.log(isAdmin,isSeller,isUser)
+    // console.log(isAdmin,isSeller,isUser)
+    // console.log(user)
 
 
     const handleLogOut = () => {

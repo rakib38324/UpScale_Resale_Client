@@ -6,6 +6,7 @@ import { AuthContext } from '../../../Context/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
 import Advertisement from '../Advertisement/Advertisement';
 import { useLoaderData } from 'react-router-dom';
+import DownloadApp from '../DownloadApp/DownloadApp';
 
 const Home = () => {
 
@@ -23,6 +24,7 @@ const Home = () => {
             <ChooseBrand></ChooseBrand>
 
             <Advertisement></Advertisement>
+            <DownloadApp></DownloadApp>
         </div>
     );
 };
